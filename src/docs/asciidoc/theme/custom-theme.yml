@@ -1,0 +1,79 @@
+font:
+  catalog:
+    IBMPlexSans:
+      normal: fonts/IBMPlexSans-Regular.ttf
+      italic: fonts/IBMPlexSans-Italic.ttf
+      bold: fonts/IBMPlexSans-Bold.ttf
+      bold_italic: fonts/IBMPlexSans-BoldItalic.ttf
+    IBMPlexSerif:
+      normal: fonts/IBMPlexSerif-Regular.ttf
+      italic: fonts/IBMPlexSerif-Italic.ttf
+      bold: fonts/IBMPlexSerif-Bold.ttf
+      bold_italic: fonts/IBMPlexSerif-BoldItalic.ttf
+title_page:
+  font_family: IBMPlexSans
+  align: left
+  background_image: image:images/image_title_page_v3.png[] # 3150 x 1750 px, 3150 x 1200 px
+title_page_logo:
+  align: right
+  image: image:images/cantonallogo.png[pdfwidth=35%]
+  top: 0%
+title_page_title:
+  font_family: IBMPlexSans
+  font_style: bold
+page:
+  layout: portrait
+  margin: [0.75in, 1in, 0.75in, 1in]
+  size: A4
+base:
+  #font_color: #333333
+  font_color: #000000
+  font_family: IBMPlexSerif
+  font_size: 11
+  line_height_length: 17
+  line_height: $base_line_height_length / $base_font_size
+  #line_height: 1.2
+  align: justify
+vertical_rhythm: $base_line_height_length
+heading:
+  font_color: #000000
+  font_family: IBMPlexSans
+  h1_font_size: 11
+  h2_font_size: 11
+  h3_font_size: 11
+  h4_font_size: 11
+  h5_font_size: 11
+  h6_font_size: 11
+  font_style: bold
+  line_height: 1.2
+  margin_bottom: 1
+link:
+  font_color: #009900
+outline_list:
+  indent: $base_font_size * 1.5
+#header:
+#  font_size: 8
+#  height: 0.75in
+#  line_height: 1
+#  recto_content:
+#    center: '{document-title}'
+#  verso_content:
+#    center: '{document-title}'
+footer:
+  font_family: IBMPlexSans
+  font_color: #333333
+  font_size: 8 
+  height: 0.75in
+  line_height: 1
+  recto:
+    right:
+      content: '{section-or-chapter-title} | {page-number}'
+  verso:
+    left:
+      content: '{page-number} | {section-or-chapter-title}'
+image:
+  align: center
+caption:
+  align: center
+  font_color: #FF0000
+  font_size: 10
