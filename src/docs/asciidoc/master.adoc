@@ -16,6 +16,12 @@ Asciidoctor.
 Frutiger.
 Das Anwendungsfenster ist in vier Bereiche aufgeteilt: Auf der rechten Seite (1) sind die Werkzeuge zum Zoomen sowie die Hintergrundkarten, im oberen Bereich (2) das Menü mit der Suche und Tools, in der Mitte das Hauptkartenfenster (3) und unten die räumlichen Angaben zu der Karte (4). 
 
+== Technische Informationen
+Frutiger
+Asciidoctor
+versioning
+github pages
+
 [.thumb]
 image:Allgemein.jpg[]
 
