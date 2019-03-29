@@ -25,6 +25,10 @@ PDF-Output:
 gradle generatePDF
 ```
 
+## Github pages
+
+https://sogis.github.io/oereb-handbuch/master.html
+
 ## Setup Github pages
 
 ```
@@ -37,5 +41,3 @@ git add .
 git commit -a -m "First pages commit"
 git push origin gh-pages
 ```
-
-https://sogis.github.io/oereb-handbuch/
