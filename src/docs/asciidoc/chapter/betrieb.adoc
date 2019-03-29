@@ -1,0 +1,61 @@
+== Betrieb
+
+=== Darstellung / Styling von WMS-Layer
+
+Die Symbole der Artcodes von öffentlich-rechtlichen Eigentumsbeschränkungen werden im Teilmodell http://models.geo.admin.ch/V_D/OeREB/OeREBKRMtrsfr_V1_1.ili[«Transferstruktur»] in der Struktur `LegendeEintrag` erfasst und transferiert:
+
+[source,options="nowrap"]  
+---- 
+STRUCTURE LegendeEintrag =
+    /** Grafischer Teil des Legendeneintrages für die Darstellung. Im PNG-Format mit 300dpi oder im SVG-Format
+    */
+    Symbol : MANDATORY BLACKBOX BINARY;
+    /** Text des Legendeneintrages
+    */
+    LegendeText : MANDATORY LocalisationCH_V1.MultilingualText;
+    /** Art der Eigentumsbeschränkung, die durch diesen Legendeneintrag dargestellt wird
+    */
+    ArtCode : MANDATORY OeREBKRM_V1_1.ArtEigentumsbeschraenkung;
+    /** Codeliste der Eigentumsbeschränkung, die durch diesen Legendeneintrag dargestellt wird
+    */
+    ArtCodeliste : MANDATORY URI;
+    /** Zu welchem ÖREB-Thema der Legendeneintrag gehört
+    */
+    Thema : MANDATORY OeREBKRM_V1_1.Thema;
+    /** z.B. Planungszonen innerhalb Nutzungsplanung
+    */
+    SubThema : OeREBKRM_V1_1.SubThema;
+    WeiteresThema : OeREBKRM_V1_1.WeiteresThema;
+    MANDATORY CONSTRAINT Thema!=#WeiteresThema OR DEFINED(WeiteresThema);
+END LegendeEintrag;
+----
+
+Ebenso sind sie Bestandteil des http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData.xsd[XML-Auszugs]:
+
+[source,xml]  
+---- 
+<xsd:complexType name="LegendEntry">
+    <xsd:sequence>
+        <xsd:choice>
+            <xsd:element name="Symbol" type="xsd:base64Binary"> </xsd:element>
+            <xsd:element name="SymbolRef" type="xsd:anyURI"> </xsd:element>
+        </xsd:choice>
+        <xsd:element name="LegendText" type="MultilingualText"> </xsd:element>
+        <xsd:element name="TypeCode" type="RestrictiontypeCode"/>
+        <xsd:element name="TypeCodelist" type="xsd:anyURI"/>
+        <xsd:element name="Theme" type="Theme"/>
+        <xsd:element name="SubTheme" minOccurs="0">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:normalizedString">
+                    <xsd:maxLength value="60"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:element>
+        <xsd:element ref="extensions" minOccurs="0"/>
+    </xsd:sequence>
+</xsd:complexType>
+---- 
+
+Für das das Abfüllen dieser Information in der entsprechenden Datenbanktabelle wurde ein GRETL-Task resp. die Bibliothek https://github.com/openoereb/oereb-iconizer[_oereb-iconizer_] geschrieben. Damit der nicht ganz einfache Prozess der Icon-Herstellung so einfach wie möglich gehalten werden kann und aus der Modellierung selber, gibt es gewisse Anforderungen an das Styling der WMS-Layer:
+
+So kann es für jeden Artcode nur ein Symbol geben, d.h. es kann keine massstabsabhängige Symbolisierung gewählt werden. Technisch relevanter ist die Notwendigkeit, dass man sich - Betreiber ÖREB-Kastaster / Ersteller der Symbolisierung und der Entwickler von _oereb-iconizer_ darauf einigt, wie man an die Information welcher Artcode durch welches Symbol dargestellt wird. In unserem Fall muss in QGIS der Rule-Based-Renderer verwendet werden und jedem Artcode mittels `PropertyIsEqualTo`-Bedingung (z.B. `artcode='N112'`) ein Style/Symbol zugewiesen werden. Mehr Informationen dazu gibt es in der https://github.com/openoereb/oereb-iconizer/blob/master/README.md[Dokumentation] von _oereb-iconizer_.

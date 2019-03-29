@@ -1,4 +1,6 @@
-= ÖREB-Kataster - Betriebshandbuch
+= ÖREB-Kataster: Handbuch
+:doctype: book
+:chapter-label: 
 :toc: right
 :toc-title: Inhaltsverzeichnis 
 :imagesdir: ./images
@@ -7,32 +9,28 @@
 :author: {author_name}
 :email: {author_email}
 :revnumber: {project-version}
-:sectnums:
+:numbered:
+:autofit-option:
+:specialnumbered!:
+:experimental:
+:back-cover-image: image:/home/template_images/bckcover.pdf[]
+:listing-caption: Listing
+:icons: font
+:toclevels: 3
+:cdn: Red Hat Content Delivery Network
+:eap: Red Hat JBoss Enterprise Application Platform
+:eapver: Red Hat JBoss Enterprise Application Platform 6
+:osp: Red Hat Enterprise Linux OpenStack Platform
+:ospver: Red Hat Enterprise Linux OpenStack Platform 7
+:rhel: Red Hat Enterprise Linux
+:rhss: Red Hat Satellite Server
+:ro: RHEL-OSP
 
-== Allgemeine Informationen 
+include::chapter/vorwort.adoc[]
 
-Das Betriebshandbuch... fubar gaga.
-Asciidoctor.
-Frutiger.
-Das Anwendungsfenster ist in vier Bereiche aufgeteilt: Auf der rechten Seite (1) sind die Werkzeuge zum Zoomen sowie die Hintergrundkarten, im oberen Bereich (2) das Menü mit der Suche und Tools, in der Mitte das Hauptkartenfenster (3) und unten die räumlichen Angaben zu der Karte (4). 
+include::chapter/entwicklung.adoc[]
 
-== Technische Informationen
-Frutiger
-Asciidoctor
-versioning
-github pages
+include::chapter/betrieb.adoc[]
 
-[.thumb]
-image:Allgemein.jpg[]
 
-== Styling der Kartenebenen (WMS-Layer)
 
-Geben Sie einen Suchbegriff (Adresse, Gemeindename, Grundstücknummer, Flurnamen, Koordinaten, EGRID oder EGID), oder auch nur einen Teil davon, in das Suchfeld im oberen linken Teil des Kartenbereichs ein (1). Alle Objekte, die der Suche entsprechen, werden angezeigt. Durch Anklicken können Sie eines davon auswählen. Der Kartenausschnitt wird dann automatisch so gewählt, dass der gesuchte Ort darin enthalten ist (2).
-
-[.thumb]
-image:Suche_Ort_2.1.1.jpg[]
-
-{nbsp} +
-
-[.thumb]
-image:Suche_Ort_2.2.1.jpg[]
