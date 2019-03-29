@@ -23,7 +23,7 @@ Vor allem bei Softwareentwicklungen muss ab einem gewissen Zeitpunkt entschieden
 
 === Tests
 
-Die entwickelten Prozesse und Artefakte müssten mit Tests kontrolliert werden. Falls immer möglich muss dies auch nach jedem Commit in _Travis_ geschehen. Es dürfen keine nicht-funktionierenden Versionen in das Github-Repository committed werden.
+Die entwickelten Prozesse und Artefakte müssten mit Tests kontrolliert werden. Falls immer möglich muss dies auch nach jedem Commit in https://travis-ci.org/[_Travis_] geschehen. Es dürfen keine nicht-funktionierenden Versionen in das Github-Repository committed werden.
 
 === Dokumentation
 

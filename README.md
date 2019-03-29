@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/sogis/oereb-handbuch.svg?branch=master)](https://travis-ci.org/sogis/oereb-handbuch)
 # oereb-handbuch
 Handbuch OEREB-Kataster Kanton Solothurn
 
