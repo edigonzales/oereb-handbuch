@@ -33,4 +33,18 @@ Das vorliegende Handbuch ist mit https://asciidoctor.org/docs/[_Asciidoctor_] ge
 
 === GRETL
 
-In einem frühen Stadium soll für die Entwicklung der Prozesse, die _GRETL_ benötigen nicht das heutige Docker-Image verwendet werden, sondern es muss mit einer aktuellen Version gearbeitet werden, da mit grosser Wahrscheinlichkeit Features von darunterliegenden Bibliotheken (v.a. https://github.com/claeis/ili2db[_ili2pg_] und https://github.com/openoereb/oereb-iconizer[_oereb-iconizer_]) verwendet werden müssen, die noch nicht im heutigen Produktionsimage vorhanden sind. Oder aber es fehlen sogar noch Features in diesen Bibliotheken, die während der Entwicklung des ÖREB-Webservices entstehen werden. Ob mit dem Gradle-Plugin direkt oder mit dem daraus abgeleiteten Docker-Image entwickelt wird ist zweitrangig.
+In einem frühen Stadium soll für die Entwicklung der Prozesse, die _GRETL_ benötigen nicht das heutige Docker-Image verwendet werden, sondern es muss mit einer aktuellen, «rohen» https://plugins.gradle.org/plugin/ch.so.agi.gretl[_Plugin-Version_] gearbeitet werden, da mit grosser Wahrscheinlichkeit Features von darunterliegenden Bibliotheken (v.a. https://github.com/claeis/ili2db[_ili2pg_] und https://github.com/openoereb/oereb-iconizer[_oereb-iconizer_]) verwendet werden müssen, die noch nicht im heutigen Produktionsimage vorhanden sind. Oder aber es fehlen sogar noch Features in diesen Bibliotheken, die während der Entwicklung des ÖREB-Webservices entstehen werden. Wie und wann das Docker Image ebenfalls mit den nachgeführten Basisbibliotheken publiziert wird, ist noch ungeklärt.
+
+=== ili2pg
+
+_Ili2pg_ erhält in der Version 4.x praktische, neue Features:
+
+- SQL-Queries zum Erzeugen des Schemas und der Tabellen (inkl. der Werte von Aufzähltypen) können ohne vorhandene und laufende Datenbank erzeugt werden. 
+- Der Primary Key («t_id») muss nicht mehr schemaweit eindeutig sein, sondern nur noch pro Tabelle. Dies sollte den Datenumbau erleichtern.
+
+Für die Entwicklung des ÖREB-Katasters ist daher eine http://jars.interlis.ch/ch/interlis/ili2pg/[Version 4.x] zu verwenden. Es ist angedacht, dass _GRETL_ möglichst rasch ebenfalls auf der Version 4.x basiert.
+
+=== Erzeugen der Symbole
+
+Für jeden ÖREB (resp. Typ resp. Legendeneintrag, siehe http://models.geo.admin.ch/V_D/OeREB/OeREBKRMtrsfr_V1_1.ili[«Transferstruktur»]) muss das Symbol (PNG-Datei) der Legende erzeugt werden. Das Erzeugen der Symbole kann mittels GRETL-Task gemacht werden, der wiederum einzelne WMS-GetLegendGraphic-Request absetzt und das Symbol in der Datenbanktabelle speichert. Da der WMS auf die Daten zugreift, die in diesem Schritt (wo auch das Erzeugen der Symbole geschieht) erstellt werden, handelt es sich um ein Huhn-Ei-Problem. Eine mögliche Lösung ist, dass man mit _Docker_ und einem sehr kleinen Beispieldatensatz (GeoPackage-Datei) einen eigenen WMS baut und diesen bei Bedarf hochfährt. Ein passendes Docker-Image für QGIS-Server gibt auf https://hub.docker.com/r/sogis/qgis-server-base/tags[hub.docker.com] (Version 2.18 ist ausstehend).
+
