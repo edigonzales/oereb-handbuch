@@ -1,5 +1,8 @@
 == Betrieb
 
+=== Nachführung verfügbare Gemeinden
+todo
+
 === Darstellung / Styling von WMS-Layer
 
 Die Symbole der Artcodes von öffentlich-rechtlichen Eigentumsbeschränkungen werden im Teilmodell http://models.geo.admin.ch/V_D/OeREB/OeREBKRMtrsfr_V1_1.ili[«Transferstruktur»] in der Struktur `LegendeEintrag` erfasst und transferiert:
