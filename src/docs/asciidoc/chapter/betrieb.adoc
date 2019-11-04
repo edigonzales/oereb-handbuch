@@ -1,64 +1,55 @@
 == Betrieb
 
-=== Nachführung verfügbare Gemeinden
-todo
+=== Architektur
+Die Architektur des ÖREB-Katasters wird im «Infrastruktur- und Betriebskonzept» (Version 1.0 vom 28. Januar 2019) vertieft erläutert.
 
-=== Darstellung / Styling von WMS-Layer
+[#oereb-architektur] 
+.Architektur ÖREB-Kataster 
+image::oereb-system-architektur-v03-Page-1.png[oereb-architektur]   
 
-Die Symbole der Artcodes von öffentlich-rechtlichen Eigentumsbeschränkungen werden im Teilmodell http://models.geo.admin.ch/V_D/OeREB/OeREBKRMtrsfr_V1_1.ili[«Transferstruktur»] in der Struktur `LegendeEintrag` erfasst und transferiert:
+Bestehende GDI-Komponenten sind blau, ÖREB-Komponenten lachsfarben. Der Web GIS Client und die Datenablage müssten korrekterweise beide Farben aufweisen.
 
-[source,options="nowrap"]  
----- 
-STRUCTURE LegendeEintrag =
-    /** Grafischer Teil des Legendeneintrages für die Darstellung. Im PNG-Format mit 300dpi oder im SVG-Format
-    */
-    Symbol : MANDATORY BLACKBOX BINARY;
-    /** Text des Legendeneintrages
-    */
-    LegendeText : MANDATORY LocalisationCH_V1.MultilingualText;
-    /** Art der Eigentumsbeschränkung, die durch diesen Legendeneintrag dargestellt wird
-    */
-    ArtCode : MANDATORY OeREBKRM_V1_1.ArtEigentumsbeschraenkung;
-    /** Codeliste der Eigentumsbeschränkung, die durch diesen Legendeneintrag dargestellt wird
-    */
-    ArtCodeliste : MANDATORY URI;
-    /** Zu welchem ÖREB-Thema der Legendeneintrag gehört
-    */
-    Thema : MANDATORY OeREBKRM_V1_1.Thema;
-    /** z.B. Planungszonen innerhalb Nutzungsplanung
-    */
-    SubThema : OeREBKRM_V1_1.SubThema;
-    WeiteresThema : OeREBKRM_V1_1.WeiteresThema;
-    MANDATORY CONSTRAINT Thema!=#WeiteresThema OR DEFINED(WeiteresThema);
-END LegendeEintrag;
-----
+Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert werden. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten müssen nur in die ÖREB-DB importiert werden, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, ...) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: _live_ und _stage_. Das _stage_-Schema dient der Validierung der Daten. Ist diese erfolgreich, werden die Daten in das _live_-Schema importiert.
 
-Ebenso sind sie Bestandteil des http://schemas.geo.admin.ch/V_D/OeREB/1.0/ExtractData.xsd[XML-Auszugs]:
+=== Komponenten
+Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden, originären Komponenten:
 
-[source,xml]  
----- 
-<xsd:complexType name="LegendEntry">
-    <xsd:sequence>
-        <xsd:choice>
-            <xsd:element name="Symbol" type="xsd:base64Binary"> </xsd:element>
-            <xsd:element name="SymbolRef" type="xsd:anyURI"> </xsd:element>
-        </xsd:choice>
-        <xsd:element name="LegendText" type="MultilingualText"> </xsd:element>
-        <xsd:element name="TypeCode" type="RestrictiontypeCode"/>
-        <xsd:element name="TypeCodelist" type="xsd:anyURI"/>
-        <xsd:element name="Theme" type="Theme"/>
-        <xsd:element name="SubTheme" minOccurs="0">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:normalizedString">
-                    <xsd:maxLength value="60"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:element>
-        <xsd:element ref="extensions" minOccurs="0"/>
-    </xsd:sequence>
-</xsd:complexType>
----- 
+- ÖREB-Datenbank
+- ÖREB-WMS
+- ÖREB Web Service
+- ÖREB-Iconizer (integriert in GRETL) 
+- ÖREB GRETL-Jobs
+- ÖREB-Annexmodell
+- ÖREB Web GIS Client (Bestandteil des Web GIS Clients)
+- Dokumentenablage (bereits bestehende Komponente für die digitale Nutzungsplanung)
+- ÖREB-Handbuch (vorliegendes Handbuch)
 
-Für das das Abfüllen dieser Information in der entsprechenden Datenbanktabelle wurde ein GRETL-Task resp. die Bibliothek https://github.com/openoereb/oereb-iconizer[_oereb-iconizer_] geschrieben. Damit der nicht ganz einfache Prozess der Icon-Herstellung so einfach wie möglich gehalten werden kann und aus der Modellierung selber, gibt es gewisse Anforderungen an das Styling der WMS-Layer:
+Nicht speziell aufgelistet sind die verschiedenen Arbeits-Datenbank-Schemen in der Edit-DB, die zur Herstellung der Daten im INTERLIS-Rahmenmodell benötigt werden. Dazu wird im Kapitel XXXXXX ("Benutzerhandbuch") näher eingegangen. https://gretl.so.ch/[_GRETL-Jenkins_], das zur Steuerung der GRETL-Jobs verwendet wird, wird ebenfalls nicht in diesem Handbuch detailliert behandelt und beschrieben, da es sich um eine Standardkomponenten der GDI handelt.
 
-So kann es für jeden Artcode nur ein Symbol geben, d.h. es kann keine massstabsabhängige Symbolisierung gewählt werden. Technisch relevanter ist die Notwendigkeit, dass man sich - Betreiber ÖREB-Kastaster / Ersteller der Symbolisierung und der Entwickler von _oereb-iconizer_ darauf einigt, wie man an die Information welcher Artcode durch welches Symbol dargestellt wird. In unserem Fall muss in QGIS der Rule-Based-Renderer verwendet werden und jedem Artcode mittels `PropertyIsEqualTo`-Bedingung (z.B. `artcode='N112'`) ein Style/Symbol zugewiesen werden. Mehr Informationen dazu gibt es in der https://github.com/openoereb/oereb-iconizer/blob/master/README.md[Dokumentation] von _oereb-iconizer_.
+==== ÖREB-Datenbank
+https://github.com/sogis/oereb-db[https://github.com/sogis/oereb-db]
+
+In der ÖREB-Datenbank werden in zwei Schemen (_live_ und _stage_) sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), die PLZ- und Ortschaftsperimeter und die Annexdaten.
+
+Die Datenstruktur entspricht einem mit _ili2pg_ angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. 
+
+Das _stage_-Schema dient der Validierung der Daten.
+
+Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem Bash-Skript durchgeführt. Ein weiteres Resultat des Prozesses ist ein Docker-Image, das aber nicht für den produktiven Betrieb in der GDI verwendet wird, sondern für Test- und Entwicklungszwecken eingesetzt werden kann. In der Produktion werden die DDL-Queries mit _Ansible_ auf dem bereits vorhandenen Datenbankserver und -cluster deployed.
+
+==== ÖREB-WMS
+https://github.com/sogis/oereb-wms[https://github.com/sogis/oereb-wms]
+
+
+
+dient auch dem iconizer
+
+
+==== Komponentendiagramm
+
+=== Entwicklung
+foo
+
+
+=== Technisches Staging
+test, int, prod

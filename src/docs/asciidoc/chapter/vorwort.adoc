@@ -1,6 +1,4 @@
 [preface]
 == Vorwort
 
-Das ÖREB-Kataster-Handbuch des Kantons Solothurn besteht aus den beiden Kapiteln «Entwicklung» und «Betrieb». Sowohl der Inhalt wie auch die Unterteilung können sich in der Realisierungsphase noch ändern.
-
-Inhalt des Handbuches sind Informationen, die nicht bereits in den einzelnen Teilprojekten dokumentiert sind oder bei denen die Notwendigkeit besteht, dass sie zentral verfügbar sind. Es sollen z.B. nicht Detailanweisungen zum Hochfahren einer Entwicklungsumgebung eines einzelnen Teilprojektes im Handbuch beschrieben werden. Solche Informationen gehören und verbleiben wohl in der technischen Dokumentation des Teilprojektes. Somit ist insbesondere der Inhalt des Entwicklungskapitels eher im Kontext der Arbeitsmethodik angesiedelt.
+Das ÖREB-Kataster-Handbuch des Kantons Solothurn dient der Organisation und Koordination der verschiedenen Abläufe des ÖREB-Katasters. Vertiefte (technische) Informationen zu den einzelnen Komponenten finden sich immer in den jeweiligen Github-Repositories. 

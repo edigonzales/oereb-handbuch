@@ -28,8 +28,6 @@
 
 include::chapter/vorwort.adoc[]
 
-include::chapter/entwicklung.adoc[]
-
 include::chapter/betrieb.adoc[]
 
 
