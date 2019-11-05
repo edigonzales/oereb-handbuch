@@ -48,7 +48,7 @@ heading:
   line_height: 1.2
   margin_bottom: 1
 link:
-  font_color: #009900
+  font_color: #c03728
 outline_list:
   indent: $base_font_size * 1.5
 #header:
