@@ -1,5 +1,11 @@
 == Betrieb
 
+=== Betreiber
+"technischer Betreiber" -> AGI ("GDI")
+
+=== Controlling- und Vorgabestelle
+AGI und AIO. (Siehe GeoIV...)
+
 === Architektur
 Die Architektur des ÖREB-Katasters wird im «Infrastruktur- und Betriebskonzept» (Version 1.0 vom 28. Januar 2019) vertieft erläutert.
 
@@ -106,6 +112,12 @@ Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Um
 
 
 ==== Komponentendiagramm
+
+=== Sicherheitsbestimmungen
+
+- im Betrieb? nur login, nur berechtigte user. Sehr grundsätzlich halten hier. Detailliert v.a. beim Benutzer? Sichergestellt durch Rollenkonzept in der DB und GRETL-Jenkins...
+
+
 
 === Entwicklung
 foo

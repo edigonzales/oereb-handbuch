@@ -20,7 +20,7 @@ asciidoctorj {  // or asciidoctor.asciidoctorj
     attributes \
         revnumber : project.version,
         imagesdir : "images"
-   //options doctype: 'book', ruby: 'erubis'
+   options doctype: 'book', ruby: 'erubis'
 }
 
 pdfThemes {
