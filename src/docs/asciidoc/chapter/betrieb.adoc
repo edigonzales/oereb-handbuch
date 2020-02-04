@@ -105,9 +105,6 @@ Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Um
 
 
 
-
-
-
 ==== Komponentendiagramm
 
 === Entwicklung

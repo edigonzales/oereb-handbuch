@@ -1,34 +1,19 @@
 = ÖREB-Kataster: Handbuch
-:doctype: book
-:chapter-label: 
 :toc: right
 :toc-title: Inhaltsverzeichnis 
-:imagesdir: ./images
 :author_name: Amt für Geoinformation Kanton Solothurn
 :author_email: agi@bd.so.ch
 :author: {author_name}
 :email: {author_email}
-:revnumber: {project-version}
-:numbered:
-:autofit-option:
-:specialnumbered!:
-:experimental:
-:back-cover-image: image:/home/template_images/bckcover.pdf[]
-:listing-caption: Listing
-:icons: font
-:toclevels: 3
-:cdn: Red Hat Content Delivery Network
-:eap: Red Hat JBoss Enterprise Application Platform
-:eapver: Red Hat JBoss Enterprise Application Platform 6
-:osp: Red Hat Enterprise Linux OpenStack Platform
-:ospver: Red Hat Enterprise Linux OpenStack Platform 7
-:rhel: Red Hat Enterprise Linux
-:rhss: Red Hat Satellite Server
-:ro: RHEL-OSP
+:title-page:
+:sectnums:
+:chapter-label: 
+:revdate: {docdate}
+:figure-caption: Abbildung
 
-include::chapter/vorwort.adoc[]
+include::src/docs/asciidoc/chapter/vorwort.adoc[]
 
-include::chapter/betrieb.adoc[]
+include::src/docs/asciidoc/chapter/betrieb.adoc[]
 
 
 

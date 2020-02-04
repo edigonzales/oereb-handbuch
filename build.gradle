@@ -1,65 +1,41 @@
-import org.asciidoctor.gradle.AsciidoctorTask
-
 plugins {
-    id "org.asciidoctor.convert" version "1.5.6"
+    id 'org.asciidoctor.jvm.convert' version '3.1.0'
+    id 'org.asciidoctor.jvm.pdf' version '3.1.0'
 }
 
 apply from: "$rootDir/gradle/versioning.gradle"
-apply plugin: 'groovy'
 
-dependencies {
-    testCompile(
-        'junit:junit:4.12',
-        'org.codehaus.groovy:groovy-all:2.4.9',
-        'org.spockframework:spock-core:1.1-groovy-2.4'
-    )
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
+repositories {
+    jcenter()
+    maven { url 'http://rubygems-proxy.torquebox.org/releases' }
+    mavenCentral()
 }
-
-asciidoctorj {
-    version = '1.5.8.1'
-}
-
-ext {
-    currentDate = new Date().format("d. MMM yyyy")
-}
-
-//version = '0.0.1'
 
 asciidoctor {
-    attributes = [
-        doctype: 'book',
-        icons: 'font',
-        sectlink: true,
-        sectanchors: true,
-        numbered: true,
-        'source-highlighter': 'coderay',
-        'currentDate': "$currentDate"
-   ]
+    sourceDir  file('src/docs/asciidoc')
+    outputDir  file('build/docs')
 }
 
-tasks.withType(AsciidoctorTask) { docTask ->
-
+asciidoctorj {  // or asciidoctor.asciidoctorj
     attributes \
-          'source-highlighter': 'coderay',
-          'toc': 'right',
-          'icons': 'font',
-          'sourceDir': "$projectDir/src/",
-          'project-version' : project.version.toString()
-
-    // good to see what the build is doing...
-    logDocuments = true
+        revnumber : project.version,
+        imagesdir : "images"
+   //options doctype: 'book', ruby: 'erubis'
 }
 
-task generatePDF (
-    type: AsciidoctorTask,
-    description: 'use pdf as asciidoc backend') {
+pdfThemes {
+    github 'sogis-basic', { 
+        organisation = 'sogis' 
+        repository = 'sogis-docs-asciidoctor-themes' 
+        relativePath = 'sogis-basic' 
+        branch = 'master' 
+    }
+}
 
-    backends = ['pdf']
+asciidoctorPdf {
     attributes \
-        'pdf-stylesdir': "$projectDir/src/docs/asciidoc/theme",
-        'pdf-style': 'custom',
-        'pdf-fontsdir': "$projectDir/src/docs/asciidoc/theme"
+        imagesdir : "src/docs/asciidoc/images"
+    theme 'sogis-basic'
+    // not posssible with github theme
+    //fontsDir file('src/docs/asciidoc/theme')
 }
-
-defaultTasks 'clean', 'asciidoctor'
