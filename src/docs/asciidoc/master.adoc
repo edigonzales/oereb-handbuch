@@ -15,7 +15,14 @@ include::src/docs/asciidoc/chapter/vorwort.adoc[]
 
 include::src/docs/asciidoc/chapter/organisation.adoc[]
 
+include::src/docs/asciidoc/chapter/systemuebersicht.adoc[]
+
 include::src/docs/asciidoc/chapter/betrieb.adoc[]
+
+include::src/docs/asciidoc/chapter/integrationsprozesse.adoc[]
+
+include::src/docs/asciidoc/chapter/changemanagement.adoc[]
+
 
 
 

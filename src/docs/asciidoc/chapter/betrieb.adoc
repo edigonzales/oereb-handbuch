@@ -1,130 +1,52 @@
 == Betrieb
 
-=== Betreiber
-"technischer Betreiber" -> AGI ("GDI")
+Das Amt für Geoinformation ist der Betreiber der ÖREB-Kataster-Infrastruktur und seinen verschiedenen Komponenten. Controlling- und Vorgabestelle ist das AGI in Zusammenarbeit mit dem Amt für Informatik und Organisation (AIO) (§5 Abs. 1 GeoIV). Die Vorgaben zur Abnahme des Systems sind im Abnahmeprotokoll (Dokument «ÖREBKataster - Abnahmeprotokoll zur Systemabnahme») enthalten.
 
-=== Controlling- und Vorgabestelle
-AGI und AIO. (Siehe GeoIV...)
+=== Durchführung und Überwachung des Betriebs
+==== Service-, Reaktionszeiten und Verfügbarkeiten
+Die Servicezeit ist der Zeitraum, während dem die vertraglich vereinbarte Verfügbarkeit der Leistung sichergestellt und ausgewiesen wird. Sie ist Basis für die Verfügbarkeitsmessung. Die Systeme stehen grundsätzlich auch ausserhalb der definierten Servicezeiten zur Verfügung (Betriebszeit 7 x 24 Stunden), jedoch ohne Gewährleistung der Verfügbarkeiten (vgl. unten).
 
-=== Architektur
-Die Architektur des ÖREB-Katasters wird im «Infrastruktur- und Betriebskonzept» (Version 1.0 vom 28. Januar 2019) vertieft erläutert.
+Servicezeit: Montag bis Freitag, 07:00 – 12:00 und 13:00 – 17:30 Uhr, allgemeine Feiertage werden wir Sonntage behandelt.
 
-[#oereb-architektur] 
-.Architektur ÖREB-Kataster 
-image::oereb-system-architektur-v03-Page-1.png[oereb-architektur]   
+Die Verfügbarkeit entspricht dem Prozentsatz, zu dem die vereinbarten Leistungen während der definierten Servicezeit (vgl. oben) erbracht werden.
 
-Bestehende GDI-Komponenten sind blau, ÖREB-Komponenten lachsfarben. Der Web GIS Client und die Datenablage müssten korrekterweise beide Farben aufweisen.
+Verfügbarkeit: 98% von Montag bis Freitag, 07:00 – 12:00 und 13:00 – 17:30 Uhr.
 
-Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert werden. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten müssen nur in die ÖREB-DB importiert werden, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, ...) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: _live_ und _stage_. Das _stage_-Schema dient der Validierung der Daten. Ist diese erfolgreich, werden die Daten in das _live_-Schema importiert.
+Die Störungsbehebungszeit bezeichnet die Zeitdauer während der Servicezeit zwischen dem Eingang der Störungsmeldung bei der Supportorganisation und der Wiederherstellung der Anwendung beziehungsweise Dienstes, inklusive der Information des Leistungsbezügers.
 
-=== Komponenten
-Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden, originären Komponenten:
+Störungsbehebungszeit: 16 Stunden
 
-- ÖREB-Datenbank
-- ÖREB-WMS
-- ÖREB Web Service 
-- ÖREB-Iconizer (integriert in GRETL) 
-- ÖREB GRETL-Jobs
-- ÖREB-Annexmodell
-- ÖREB Web GIS Client (Bestandteil des Web GIS Clients)
-- Dokumentenablage (bereits bestehende Komponente für die digitale Nutzungsplanung)
-- ÖREB-Handbuch (vorliegendes Handbuch)
+==== Betriebsüberwachung mit Monitoring, Alarmierung etc.
+Die Überwachung des Betriebs des ÖREB-Katasters erfolgt auf unterschiedlichen Stufen: 
 
-Nicht speziell aufgelistet sind die verschiedenen Arbeits-Datenbank-Schemen in der Edit-DB, die zur Herstellung der Daten im INTERLIS-Rahmenmodell benötigt werden. Dazu wird im Kapitel XXXXXX ("Benutzerhandbuch") näher eingegangen. https://gretl.so.ch/[_GRETL-Jenkins_], das zur Steuerung der GRETL-Jobs verwendet wird, wird ebenfalls nicht in diesem Handbuch detailliert behandelt und beschrieben, da es sich um eine Standardkomponente der GDI handelt.
+Das AIO überwacht den Betrieb des _OpenShift_-Clusters in dem sämtliche vom AGI betriebenen ÖREB-Kataster-Komponenten (mit Ausnahme der Datenbank) deployed sind. Die ÖREB-Kataster-Komponenten werden vom AGI mit _OpenShift_-Bordmitteln überwacht (Live- und Readynesstests, Selfhealing, etc.). Zusätzlich wird mit https://www.statuscake.com/[_Statuscake_] ein Uptime- und Performancemonitoring betrieben. Fehler werden per E-Mail an die entsprechenden Personen mitgeteilt.
 
-==== ÖREB-Datenbank
+Die ÖREB-Datenbank wird nicht in _OpenShift_ betrieben, sondern im bestehenden Datenbankcluster des AGI auf virtuellen Servern. Die Überwachung wird mit _NAGIOS_ sichergestellt.
 
-Code-Repository: +
-https://github.com/sogis/oereb-db[https://github.com/sogis/oereb-db]
+Fehler bei den Integrationsprozessen werden der zuständigen Stellen und dem AGI per E-Mail mitgeteilt.
 
-Docker-Image: +
-https://hub.docker.com/r/sogis/oereb-db[https://hub.docker.com/r/sogis/oereb-db]
+==== Datensicherung
+Die Geobasisdaten der kantonalen ÖREB-Themen sind in der kantonalen GDI abgelegt und werden entsprechend durch bereits vorhandene Prozesse gesichert. Die Dokumente auf dem Filesystem werden durch übergeordnete Backupprozesse des AIO gesichert.
 
+Jede Integration einer Änderung geschieht mittels Rahmenmodell. Diese INTERLIS-Transferdatei wird archiviert.
 
-In der ÖREB-Datenbank werden in zwei Schemen (_live_ und _stage_) sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), die PLZ- und Ortschaftsperimeter und die Annexdaten.
+==== Kontrolle zum Datenschutz
+Die Geobasisdaten der ÖREB-Katasterthemen enthalten ausschliesslich nicht-sensitive Sachdaten und unterliegen deshalb nicht dem Datenschutz.
 
-Die Datenstruktur entspricht einem mit _ili2pg_ angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. 
+Die Rechtsvorschriften werden ohne sensible Daten publiziert. Die entsprechende Bearbeitung der Rechtsvorschriften liegt in der Verantwortung der zuständigen Datenherren.
 
-Das _stage_-Schema dient der Validierung der Daten.
+==== Statistiken, Kennzahlen und Messgrössen
+Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge werden mit https://matomo.org/[_Matomo_] protokolliert und können ausgewertet werden. Diese Auswertungen dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.
 
-Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem https://github.com/sogis/oereb-db/blob/master/create_schema_sql_scripts.sh[Bash-Skript] durchgeführt. 
+==== Vorgehen im Fehlerfall (inkl. organisatorische Aspekte wie Kommunikation etc.)
+Fehler in den Geobasisdaten und Rechtsvorschriften, welche der GIS-Fachstelle gemeldet werden, werden dem zuständigen Datenherrn zur Korrektur gemeldet. Die Fehler sind je nach Art so schnell wie möglich zu beheben. 
 
-Für Test- und Entwicklungszwecken wird mit Travis ein https://github.com/sogis/oereb-db/blob/master/Dockerfile[Docker-Image ]der OEREB-Datenbank erzeugt.
+=== Ausfall und Wiederherstellung des Betriebs
+Durch den Betrieb der meisten Komponenten in _OpenShift_ werden diese automatisch selber neu gestartet. Falls das «Selfhealing» nicht funktioniert und bei der klassisch betriebenen ÖREB-Datenbank wird innerhalb von 30 Minuten nach Eingang der Meldung die Anwendung neu gestartet.
 
-Im produktiven Betrieb wird nicht das Docker-Image verwendet, sondern die DDL-Queries werden mit _Ansible_ auf dem bereits in der GDI vorhandenen Datenbankserver und -cluster deployed. Es ist die einzige Softwarekomponente, die nicht mittels _Docker_ betrieben wird.
+Ausgenommen davon ist die Bereitstellung der ÖREB-Daten des Bundes. In diesem Fall ist die Behebung durch die zuständige Stelle beim Bund abzuwarten.
 
-Benutzernamen und Passwörter der DB-Benutzer werden durch Setzen der Umgebungsvariablen `PG_USER`, `PG_PASSWORD`, `PG_WRITE_USER`, `PG_WRITE_PASSWORD`, `PG_READ_USER` und `PG_READ_PASSWORD` definiert. Das Passwort für den DB-Benutzer `postgres` wird durch die Umgebungsvariable `PG_ROOT_PASSWORD` gesetzt.
-
-==== ÖREB-WMS
-Code-Repository: +
-https://github.com/sogis/oereb-wms[https://github.com/sogis/oereb-wms]
-
-Docker-Image: +
-https://hub.docker.com/r/sogis/oereb-wms[https://hub.docker.com/r/sogis/oereb-wms]
-
-Der ÖREB-WMS dient dazu die denormalisierten Tabellen (siehe <<_Öreb_datenbank>>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direk verwendet.
-
-Der WMS-Server exponiert zwei Endpunkte: 
-
-- https://geo.so.ch/wms/oereb: WMS-Layer der kantonalen ÖREB-Daten
-- https://geo.so.ch/wms/oereb-symbols: «Dummy»-Layer für die Generierung der Symbole der Eigentumsbeschränkungen (siehe XXXXXX Gretljobs?). Die Symbole sind Bestandteil der Transferstruktur. 
-
-Die Trennung entstand zum Zeitpunkt, wo noch keine Daten (in der Transferstruktur) vorlagen und ist nicht zwinged notwendig. Zudem können so einfacher Änderungen an der Darstellung durchgespielt werden.
-
-Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das https://github.com/sogis/oereb-wms/blob/master/Dockerfile.qgisserver[Docker-Image] gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den `search_path` (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter `/etc/postgresql-common` in den Docker-Container gemountet.
-
-Für den produktiven Einsatz wird nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.
-
-Nach jedem Commit wird auf Travis das Image neu gebuildet und innerhalb von 15 Minuten auf der https://ocp-console.so.ch/console/project/agi-oereb-test/overview[Test- und Integrationsumgebung] von _OpenShift_ deployed. 
-
-Es wird QGIS 3.4 LTR eingesetzt.
-
-==== ÖREB Web Service
-Code-Repository: +
-https://github.com/claeis/oereb-web-service[https://github.com/claeis/oereb-web-service] +
-https://github.com/sogis/oereb-web-service-docker[https://github.com/sogis/oereb-web-service-docker]
-
-Docker-Image: +
-https://hub.docker.com/r/sogis/oereb-web-service[https://hub.docker.com/r/sogis/oereb-web-service]
-
-Der ÖREB Web Service ist die M2M-Schnittstelle des ÖREB-Katasters und dient dem Bezug des ÖREB-Katasterauszuges (XML und PDF) als Downloaddienst. Das Bundesamt für Landestopografie hat dazu zwei Weisungen (https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-XML-Aufruf_de.pdf.html[«ÖREB-Webservice (Aufruf eines Auszugs)»] und https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf.html[«ÖREB-Kataster - DATA-Extract»]) erlassen.
-
-Die Umwandlung des XML nach PDF übernimmt die im Web Service integrierte Bibliothek https://github.com/openoereb/pdf4oereb[_pdf4oereb_].
-
-Der ÖREB Web Service des Kantons Solothurn unterstützt nur das Ausgabeformat XML und den reduzierten PDF-Auszug.
-
-Alle benötigten Daten müssen in einem einzigen Schema in einer PostgreSQL-Datenbank vorliegen. Die Konfiguration (inkl. der Datenbank-Verbindungsparameter) wird mittels ENV-Variablen gesteuert.
-
-Jeder Commit im Code-Repository stösst einen Build-Prozess des Docker-Image-Repositories an. Das Docker-Image wird anschliessend automatisch in der https://ocp-console.so.ch/console/project/agi-oereb-test/browse/dc/oereb-web-service?tab=history[Test- und Integrationsumgebung] von _OpenShift_ deployed.
-
-==== ÖREB-Iconizer
-Code-Repository: +
-https://github.com/openoereb/oereb-iconizer[https://github.com/openoereb/oereb-iconizer]
-
-Der _ÖREB-Iconizer_ ist eine Java-Bibliothek, die zum Herstellen der einzelnen ÖREB-Symbole (als Bestandteil der Transferstruktur), verwendet wird. Weil der Symbol-Herstellungsprozess während des Datenumbaues «kantonale Daten - ÖREB-Rahmenmodell» geschehen muss und für diesen Schritt https://github.com/sogis/gretl[_GRETL_] eingesetzt wird, wurde auf Basis der Bibliothek ein https://github.com/sogis/gretl/blob/master/docs/user/index.md#oerebiconizerqgis3[GRETL-Customtask] geschrieben.
-
-==== ÖREB GRETL-Jobs
-Code-Repository: + 
-https://github.com/sogis/oereb-gretljobs[https://github.com/sogis/oereb-gretljobs]
-
-Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und die ÖREB-Datenbank importiert werden.
+Das komplette Neuaufsetzen der ÖREB-Katasterinfrastruktur ist dank des Betriebs mittels _Docker_ und _OpenShift_ einerseits und der ebenfalls als Code vorgehaltenen und in einem VCS verwalteten Konfigurationen bereits zu grossen Teilen automatisiert und nicht besonders zeitintensiv. Das Einspielen sämtlicher Daten mit den ÖREB-Integrationsprozessen in die ÖREB-Datenbank dauert circa 2 Stunden. Zusätzlich kann die Datenbank selbstverständlich bei Bedarf mit einem Datenbankdump wiederhergestellt werden.
 
 
 
-==== Komponentendiagramm
-
-=== Sicherheitsbestimmungen
-
-- im Betrieb? nur login, nur berechtigte user. Sehr grundsätzlich halten hier. Detailliert v.a. beim Benutzer? Sichergestellt durch Rollenkonzept in der DB und GRETL-Jenkins...
-
-
-
-=== Entwicklung
-foo
-
-
-=== Technisches Staging
-test, int, prod
-
-=== Openshift
-oder zusammen mit staging?

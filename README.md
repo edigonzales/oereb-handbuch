@@ -22,7 +22,7 @@ gradle asciidoctor
 
 PDF-Output:
 ```
-gradle generatePDF
+gradle asciidoctorPDF
 ```
 
 ## Github pages
