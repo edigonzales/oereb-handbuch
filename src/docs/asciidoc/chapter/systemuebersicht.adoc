@@ -9,10 +9,10 @@ image::oereb-system-architektur-v03-Page-1.png[oereb-architektur]
 
 Bestehende GDI-Komponenten sind blau, ÖREB-Komponenten lachsfarben. Der Web GIS Client und die Datenablage müssten korrekterweise beide Farben aufweisen.
 
-Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert werden. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten müssen nur in die ÖREB-DB importiert werden, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, ...) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: _live_ und _stage_. Das _stage_-Schema dient der Validierung der Daten. Ist diese erfolgreich, werden die Daten in das _live_-Schema importiert.
+Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten müssen nur in die ÖREB-DB importiert werden, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, ...) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: _live_ und _stage_. Das _stage_-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das _live_-Schema importiert.
 
 === Komponenten
-Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden, originären Komponenten:
+Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden Komponenten:
 
 - ÖREB-Datenbank
 - ÖREB-WMS
@@ -24,7 +24,7 @@ Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden, originären 
 - Dokumentenablage (bereits bestehende Komponente für die digitale Nutzungsplanung)
 - ÖREB-Handbuch (vorliegendes Handbuch)
 
-Nicht speziell aufgelistet sind die verschiedenen Arbeits-Datenbank-Schemen in der Edit-DB, die zur Herstellung der Daten im INTERLIS-Rahmenmodell benötigt werden. Dazu wird im Kapitel <<integrationsprozesse.adoc#datenintegration>> näher eingegangen. https://gretl.so.ch/[_GRETL-Jenkins_], das zur Steuerung der GRETL-Jobs verwendet wird, wird ebenfalls nicht in diesem Handbuch detailliert behandelt und beschrieben, da es sich um eine Standardkomponente der GDI handelt.
+Nicht speziell aufgelistet sind die verschiedenen Arbeits-Datenbank-Schemen in der Edit-DB, die zur Herstellung der Daten im INTERLIS-Rahmenmodell benötigt werden. Dazu wird im Kapitel <<#datenintegration>> näher eingegangen. https://gretl.so.ch/[_GRETL-Jenkins_], das zur Steuerung der GRETL-Jobs verwendet wird, wird ebenfalls nicht in diesem Handbuch detailliert behandelt und beschrieben, da es sich um eine Standardkomponente der GDI handelt.
 
 [#oereb_datenbank]
 ==== ÖREB-Datenbank
@@ -35,15 +35,15 @@ Docker-Image: +
 https://hub.docker.com/r/sogis/oereb-db[https://hub.docker.com/r/sogis/oereb-db]
 
 
-In der ÖREB-Datenbank werden in zwei Schemen (_live_ und _stage_) sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), die PLZ- und Ortschaftsperimeter und die Annexdaten.
+In der ÖREB-Datenbank werden in zwei Schemen (_live_ und _stage_) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), die PLZ- und Ortschaftsperimeter und die Annexdaten.
 
-Die Datenstruktur entspricht einem mit _ili2pg_ angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. 
+Die Datenstruktur entspricht einem mit _ili2pg_ angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. Die  «flachgewalzten» Tabellen müssen zusätzlich 1:1 in eine View überführt werden und das JSON-Array zu einem Text gecasted werden, damit die eingesetzte QGIS-Server-Version damit umgehen kann.
 
-Das _stage_-Schema dient der Validierung der Daten.
+Das _stage_-Schema dient der Validierung der Daten durch die zuständigen Stellen.
 
 Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem https://github.com/sogis/oereb-db/blob/master/create_schema_sql_scripts.sh[Bash-Skript] durchgeführt. 
 
-Für Test- und Entwicklungszwecken wird mit Travis ein https://github.com/sogis/oereb-db/blob/master/Dockerfile[Docker-Image ]der OEREB-Datenbank erzeugt.
+Für Test- und Entwicklungszwecken wird mit Travis ein https://github.com/sogis/oereb-db/blob/master/Dockerfile[Docker-Image ]der ÖREB-Datenbank erzeugt.
 
 Im produktiven Betrieb wird nicht das Docker-Image verwendet, sondern die DDL-Queries werden mit _Ansible_ auf dem bereits in der GDI vorhandenen Datenbankserver und -cluster deployed. Es ist die einzige Softwarekomponente, die nicht mittels _Docker_ betrieben wird.
 
@@ -56,18 +56,18 @@ https://github.com/sogis/oereb-wms[https://github.com/sogis/oereb-wms]
 Docker-Image: +
 https://hub.docker.com/r/sogis/oereb-wms[https://hub.docker.com/r/sogis/oereb-wms]
 
-Der ÖREB-WMS dient dazu die denormalisierten Tabellen (siehe <<#oereb_datenbank>>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direk verwendet.
+Der ÖREB-WMS dient dazu die denormalisierten Views (siehe <<#oereb_datenbank>>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direkt verwendet.
 
 Der WMS-Server exponiert zwei Endpunkte: 
 
 - https://geo.so.ch/wms/oereb: WMS-Layer der kantonalen ÖREB-Daten
 - https://geo.so.ch/wms/oereb-symbols: «Dummy»-Layer für die Generierung der Symbole der Eigentumsbeschränkungen (siehe <<#oereb-gretl-jobs>>). Die Symbole sind Bestandteil der Transferstruktur. 
 
-Die Trennung entstand zum Zeitpunkt, wo noch keine Daten (in der Transferstruktur) vorlagen und ist nicht zwinged notwendig. Zudem können so einfacher Änderungen an der Darstellung durchgespielt werden.
+Die Trennung entstand zum Zeitpunkt, wo noch keine Daten (in der Transferstruktur) vorlagen und ist nicht zwinged notwendig. So können aber einfacher Änderungen an der Darstellung durchgespielt werden.
 
 Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das https://github.com/sogis/oereb-wms/blob/master/Dockerfile.qgisserver[Docker-Image] gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den `search_path` (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter `/etc/postgresql-common` in den Docker-Container gemountet.
 
-Für den produktiven Einsatz wird nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.
+Für den produktiven Einsatz wird somit nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.
 
 Nach jedem Commit wird auf Travis das Image neu gebuildet und innerhalb von 15 Minuten auf der https://ocp-console.so.ch/console/project/agi-oereb-test/overview[Test- und Integrationsumgebung] von _OpenShift_ deployed. 
 
