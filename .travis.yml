@@ -18,7 +18,7 @@ script:
 deploy:
   - provider: pages
     skip_cleanup: true
-    local_dir: build/asciidoc/html5/  # or remove this line to upload from root of repo
+    local_dir: build/docs/  # or remove this line to upload from root of repo
     github_token: $GITHUB_TOKEN  
     on:
       branch: master
