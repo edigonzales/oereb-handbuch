@@ -6,7 +6,7 @@ Das Amt für Geoinformation ist der Betreiber der ÖREB-Kataster-Infrastruktur u
 ==== Service-, Reaktionszeiten und Verfügbarkeiten
 Die Servicezeit ist der Zeitraum, während dem die vertraglich vereinbarte Verfügbarkeit der Leistung sichergestellt und ausgewiesen wird. Sie ist Basis für die Verfügbarkeitsmessung. Die Systeme stehen grundsätzlich auch ausserhalb der definierten Servicezeiten zur Verfügung (Betriebszeit 7 x 24 Stunden), jedoch ohne Gewährleistung der Verfügbarkeiten (vgl. unten).
 
-Servicezeit: Montag bis Freitag, 07:00 – 12:00 und 13:00 – 17:30 Uhr, allgemeine Feiertage werden wir Sonntage behandelt.
+Servicezeit: Montag bis Freitag, 07:00 – 12:00 und 13:00 – 17:30 Uhr, allgemeine Feiertage werden wie Sonntage behandelt.
 
 Die Verfügbarkeit entspricht dem Prozentsatz, zu dem die vereinbarten Leistungen während der definierten Servicezeit (vgl. oben) erbracht werden.
 
@@ -23,12 +23,12 @@ Das AIO überwacht den Betrieb des _OpenShift_-Clusters in dem sämtliche vom AG
 
 Die ÖREB-Datenbank wird nicht in _OpenShift_ betrieben, sondern im bestehenden Datenbankcluster des AGI auf virtuellen Servern. Die Überwachung wird mit _NAGIOS_ sichergestellt.
 
-Fehler bei den Integrationsprozessen werden der zuständigen Stellen und dem AGI per E-Mail mitgeteilt.
+Störungsmeldungen bei den Daten-Integrationsprozessen werden der zuständigen Stellen und dem AGI per E-Mail mitgeteilt.
 
 ==== Datensicherung
 Die Geobasisdaten der kantonalen ÖREB-Themen sind in der kantonalen GDI abgelegt und werden entsprechend durch bereits vorhandene Prozesse gesichert. Die Dokumente auf dem Filesystem werden durch übergeordnete Backupprozesse des AIO gesichert.
 
-Jede Integration einer Änderung geschieht mittels Rahmenmodell. Diese INTERLIS-Transferdatei wird archiviert.
+Jede Datenintegration in den ÖREB-Kataster geschieht mittels Rahmenmodell. Diese INTERLIS-Transferdatei wird archiviert.
 
 ==== Kontrolle zum Datenschutz
 Die Geobasisdaten der ÖREB-Katasterthemen enthalten ausschliesslich nicht-sensitive Sachdaten und unterliegen deshalb nicht dem Datenschutz.

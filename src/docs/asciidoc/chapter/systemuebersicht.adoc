@@ -102,7 +102,7 @@ Der _ÖREB-Iconizer_ ist eine Java-Bibliothek, die zum Herstellen der einzelnen 
 Code-Repository: + 
 https://github.com/sogis/oereb-gretljobs[https://github.com/sogis/oereb-gretljobs]
 
-Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und die ÖREB-Datenbank importiert werden.
+Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.
 
 ==== ÖREB-Annexmodell
 INTERLIS-Modellablage: +
@@ -115,9 +115,6 @@ Dokumentenablage: +
 https://geo.so.ch/docs/ch.so.arp.zonenplaene/Zonenplaene_pdf/[https://geo.so.ch/docs/ch.so.arp.zonenplaene/Zonenplaene_pdf/]
 
 Für die Ablage und das Bereitstellen sämtlicher Dokumente wird die bestehende Lösung des AGI verwendet: Sie besteht aus einem klassischen Filesystem, das in die verschiedenen Desktop- und Serverumgebungen eingebunden werden kann und von den berechtigten Benutzern verwendet werden kann. Dieses Filesystem wird mittels API-Gateway (_nginx_ Webserver) als HTTP-Ressource exponiert. 
-
-==== Komponentendiagramm
-*TODO...*
 
 === Systemumgebungen (Technisches Staging)
 Es stehen drei vollständige Systemumgebungung zur Verfügung:

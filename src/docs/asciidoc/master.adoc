@@ -1,4 +1,5 @@
 = ÖREB-Kataster: Handbuch
+:encoding: utf-8
 :toc: right
 :toc-title: Inhaltsverzeichnis 
 :author_name: Amt für Geoinformation Kanton Solothurn

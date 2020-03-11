@@ -9,7 +9,7 @@ Die Integrationsprozesse sind dafür verantwortlich, dass die für den Betrieb d
 
 === Nachführung der ÖREB-Daten
 ==== Bundesdaten
-Bundesdaten werden durch das zuständige Bundesamt nachgeführt und auf der Webseite https://data.geo.admin.ch/[https://data.geo.admin.ch/] im entsprechenden Unterordner bereitgestellt. Analog werden die Codelisten und die Bundesgesetzen und -verordnungen behandelt.
+Bundesdaten werden durch das zuständige Bundesamt nachgeführt und auf der Webseite https://data.geo.admin.ch/[https://data.geo.admin.ch/] im entsprechenden Unterordner bereitgestellt. Analog werden die Codelisten und die Bundesgesetze und -verordnungen behandelt.
 
 ==== Kantonale Daten 
 ===== Nutzungsplanung
@@ -25,8 +25,6 @@ Für die Nachführung des Katasters der belasteten Standorte setzt das Amt für 
 Der planerische Gewässerschutz wird im MGDM durch das Amt für Umwelt in der Edit-DB nachgeführt.
 
 ===== Schützenswerte Objekte / Einzelschutzverfügungen
-*FIXME* Stimmt der Titel?
-
 Diese ÖREB-Kataster-relevanten Daten werden durch das Amt für Archäologie und Denkmalschutz in der Fachanwendung _ArtPlus_ ausserhalb der kantonalen GDI nachgeführt. Ein Teilmenge der Daten wird täglich in die Edit-DB importiert.
 
 === Nachführung der kantonalen Gesetze
@@ -39,7 +37,7 @@ Die Daten werden durch das AGI in der Edit-DB nachgeführt.
 === Datenintegration
 Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:
 
-Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B _arp_npl_oereb_), anschliessend nach INTERLIS exportiert, validiert und die die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: _stage_ und _live_. Zuerst werden die Daten in das _stage_-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer sind als geschützte Layer im Web GIS Client freigeschaltet. 
+Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B _arp_npl_oereb_), anschliessend nach INTERLIS exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: _stage_ und _live_. Zuerst werden die Daten in das _stage_-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer sind als geschützte Layer im Web GIS Client freigeschaltet. 
 
 Das Starten eines solchen Jobs wird in https://gretl.so.ch[_GRETL-Jenkins_] gemacht. Nur berechtigte Personen können den Job starten. Nach erfolgter visueller Validierung muss die berechtigte Person den Import in das _live_-Schema freigeben.
 
