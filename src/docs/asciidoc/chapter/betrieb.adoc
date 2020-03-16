@@ -1,6 +1,6 @@
 == Betrieb
 
-Das Amt für Geoinformation ist der Betreiber der ÖREB-Kataster-Infrastruktur und seinen verschiedenen Komponenten. Controlling- und Vorgabestelle ist das AGI in Zusammenarbeit mit dem Amt für Informatik und Organisation (AIO) (§5 Abs. 1 GeoIV). Die Vorgaben zur Abnahme des Systems sind im Abnahmeprotokoll (Dokument «ÖREBKataster - Abnahmeprotokoll zur Systemabnahme») enthalten.
+Das Amt für Geoinformation ist der Betreiber der ÖREB-Kataster-Infrastruktur und seinen verschiedenen Komponenten. Die IT-Grundinfrastruktur (Netzwerk, Storage, virtuelle Server, OpenShift-Infrastruktur) wird vom Amt für Informatik und Organisation (AIO) bereitgestellt und betrieben. Controlling- und Vorgabestelle ist das AGI in Zusammenarbeit mit dem AIO (§5 Abs. 1 GeoIV). Die Vorgaben zur Abnahme des Systems sind im Abnahmeprotokoll (Dokument «ÖREB-Kataster - Abnahmeprotokoll zur Systemabnahme») enthalten.
 
 === Durchführung und Überwachung des Betriebs
 ==== Service-, Reaktionszeiten und Verfügbarkeiten
@@ -26,27 +26,35 @@ Die ÖREB-Datenbank wird nicht in _OpenShift_ betrieben, sondern im bestehenden 
 Störungsmeldungen bei den Daten-Integrationsprozessen werden der zuständigen Stellen und dem AGI per E-Mail mitgeteilt.
 
 ==== Datensicherung
-Die Geobasisdaten der kantonalen ÖREB-Themen sind in der kantonalen GDI abgelegt und werden entsprechend durch bereits vorhandene Prozesse gesichert. Die Dokumente auf dem Filesystem werden durch übergeordnete Backupprozesse des AIO gesichert.
+Die Geobasisdaten der kantonalen ÖREB-Themen sind in der kantonalen GDI abgelegt und werden entsprechend durch bereits vorhandene Prozesse jeden Tag gesichert. Die Dokumente auf dem Filesystem werden durch übergeordnete Backupprozesse des AIO gesichert.
 
 Jede Datenintegration in den ÖREB-Kataster geschieht mittels Rahmenmodell. Diese INTERLIS-Transferdatei wird archiviert.
 
 ==== Kontrolle zum Datenschutz
 Die Geobasisdaten der ÖREB-Katasterthemen enthalten ausschliesslich nicht-sensitive Sachdaten und unterliegen deshalb nicht dem Datenschutz.
 
-Die Rechtsvorschriften werden ohne sensible Daten publiziert. Die entsprechende Bearbeitung der Rechtsvorschriften liegt in der Verantwortung der zuständigen Datenherren.
+Die Rechtsvorschriften werden ohne sensible Daten publiziert. Die entsprechende Bearbeitung der Rechtsvorschriften liegt in der Verantwortung der zuständigen Stelle.
 
 ==== Statistiken, Kennzahlen und Messgrössen
-Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge werden mit https://matomo.org/[_Matomo_] protokolliert und können ausgewertet werden. Diese Auswertungen dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.
+Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge über den Web GIS Client werden mit https://matomo.org/[_Matomo_] protokolliert und können ausgewertet werden. Diese Auswertungen dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.
 
-==== Vorgehen im Fehlerfall (inkl. organisatorische Aspekte wie Kommunikation etc.)
-Fehler in den Geobasisdaten und Rechtsvorschriften, welche der GIS-Fachstelle gemeldet werden, werden dem zuständigen Datenherrn zur Korrektur gemeldet. Die Fehler sind je nach Art so schnell wie möglich zu beheben. 
+==== Vorgehen im bei Datenfehler (inkl. organisatorische Aspekte wie Kommunikation etc.)
+Fehler in den Geobasisdaten und Rechtsvorschriften, welche der KVS gemeldet werden, werden der zuständigen Stelle zur Korrektur gemeldet. Die Fehler sind je nach Art so schnell wie möglich zu beheben. 
 
 === Ausfall und Wiederherstellung des Betriebs
 Durch den Betrieb der meisten Komponenten in _OpenShift_ werden diese automatisch selber neu gestartet. Falls das «Selfhealing» nicht funktioniert und bei der klassisch betriebenen ÖREB-Datenbank wird innerhalb von 30 Minuten nach Eingang der Meldung die Anwendung neu gestartet.
 
 Ausgenommen davon ist die Bereitstellung der ÖREB-Daten des Bundes. In diesem Fall ist die Behebung durch die zuständige Stelle beim Bund abzuwarten.
 
-Das komplette Neuaufsetzen der ÖREB-Katasterinfrastruktur ist dank des Betriebs mittels _Docker_ und _OpenShift_ einerseits und der ebenfalls als Code vorgehaltenen und in einem VCS verwalteten Konfigurationen bereits zu grossen Teilen automatisiert und nicht besonders zeitintensiv. Das Einspielen sämtlicher Daten mit den ÖREB-Integrationsprozessen in die ÖREB-Datenbank dauert circa 2 Stunden. Zusätzlich kann die Datenbank selbstverständlich bei Bedarf mit einem Datenbankdump wiederhergestellt werden.
+Das komplette Neuaufsetzen der ÖREB-Katasterinfrastruktur ist dank des Betriebs mittels _Docker_ und _OpenShift_ einerseits und der ebenfalls als Code vorgehaltenen und in einem VCS verwalteten Konfigurationen bereits zu grossen Teilen automatisiert können und dauert maximal einen Arbeitstag. Das Einspielen sämtlicher Daten mit den ÖREB-Integrationsprozessen in die ÖREB-Datenbank dauert circa 2 Stunden. Zusätzlich kann die Datenbank selbstverständlich bei Bedarf mit einem Datenbankdump wiederhergestellt werden.
 
+Reihenfolge der Inbetriebnahme der Komponenten bei einem Neuaufsetzen:
+
+1. ÖREB-Datenbank
+2. ÖREB-WMS
+3. Deployen der ÖREB-GRETL-Jobs in Jenkins
+4. Importieren der Grundlagedaten (Codelisten, gesetzlichen Grundlagen (Bund und Kanton), Amtliche Vermessung (inkl. Grundbuchkreise), amtliches Ortschaftsverzeichnis) mit GRETL-Jobs
+5. Importieren der ÖREB-Transferdaten
+6. Installation des Werkzeuges im Web GIS Client.
 
 

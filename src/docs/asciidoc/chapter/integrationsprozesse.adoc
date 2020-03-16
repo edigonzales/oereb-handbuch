@@ -1,49 +1,84 @@
 == Integrationsprozesse
 Die Integrationsprozesse sind dafür verantwortlich, dass die für den Betrieb des ÖREB-Katasters notwendigen Daten in der ÖREB-Datenbank integriert werden. Konkret sind das:
 
-- ÖREB-Daten der 17 Themen
+- ÖREB-Daten 
 - Codelisten (nur Bund)
 - Bundesgesetze und -verordnungen, sowie kantonale Gesetze und Verordnungen
 - ÖREB-Annexmodell
-- AV-Daten (inkl. PLZ und Ortschaften)
-
-=== Nachführung der ÖREB-Daten
-==== Bundesdaten
-Bundesdaten werden durch das zuständige Bundesamt nachgeführt und auf der Webseite https://data.geo.admin.ch/[https://data.geo.admin.ch/] im entsprechenden Unterordner bereitgestellt. Analog werden die Codelisten und die Bundesgesetze und -verordnungen behandelt.
-
-==== Kantonale Daten 
-===== Nutzungsplanung
-Die Nutzungsplanung wird durch externe Planungs- und Ingenieurbüros in einem kantonalen Datenmodell erfasst und an den Kanton geliefert. Das Amt für Raumplanung verifiziert diese und das Amt für Geoinformation importiert diese in die Edit-DB.
-
-===== Waldgrenzen
-Die Waldgrenzen werden in einem kantonalen Datenmodell durch das Amt für Jagd, Wald und Fischerei (AWJF) in der Edit-DB nachgeführt.
-
-===== Kataster der belasteten Standorte
-Für die Nachführung des Katasters der belasteten Standorte setzt das Amt für Umwelt (AfU) die Software _altlast4web_ ein. Die Software läuft ausserhalb der GDI.
-
-===== Planerischer Gewässerschutz
-Der planerische Gewässerschutz wird im MGDM durch das Amt für Umwelt in der Edit-DB nachgeführt.
-
-===== Schützenswerte Objekte / Einzelschutzverfügungen
-Diese ÖREB-Kataster-relevanten Daten werden durch das Amt für Archäologie und Denkmalschutz in der Fachanwendung _ArtPlus_ ausserhalb der kantonalen GDI nachgeführt. Ein Teilmenge der Daten wird täglich in die Edit-DB importiert.
-
-=== Nachführung der kantonalen Gesetze
-Das AGI führt die kantonalen Gesetze im Auftrag der Staatskanzlei nach. Da es sich um wenige Gesetze und wenige Mutationen handelt, geschieht die Nachführung direkt in der INTERLIS-Transferdatei im Rahmenmodell. Die Daten werden anschliessend wieder in den dafür vorgesehen Ordner im Filesystem kopiert und die Datei ist als HTTP-Ressource greifbar: https://geo.so.ch/geodata/ch.so.sk.gesetze.oereb/[https://geo.so.ch/geodata/ch.so.sk.gesetze.oereb/]. 
-
-=== Nachführung ÖREB-Annexmodell
-Die Daten werden durch das AGI in der Edit-DB nachgeführt.
+- AV-Daten (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)
 
 [#datenintegration]
 === Datenintegration
 Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:
 
-Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B _arp_npl_oereb_), anschliessend nach INTERLIS exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: _stage_ und _live_. Zuerst werden die Daten in das _stage_-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer sind als geschützte Layer im Web GIS Client freigeschaltet. 
+Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B _arp_npl_oereb_), anschliessend nach INTERLIS exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: _stage_ und _live_. Zuerst werden die Daten in das _stage_-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer aus dem _stage_-Schema sind als geschützte Layer im Web GIS Client freigeschaltet, wo die Daten kontrolliert werden können.
 
 Das Starten eines solchen Jobs wird in https://gretl.so.ch[_GRETL-Jenkins_] gemacht. Nur berechtigte Personen können den Job starten. Nach erfolgter visueller Validierung muss die berechtigte Person den Import in das _live_-Schema freigeben.
 
 Sämtliche Aktionen in _GRETL-Jenkins_ werden transparent geloggt und sind nachvollziehbar. Die erzeugten Daten im Rahmenmodell werden archiviert.
 
-Die Daten des Kataster der belasteten Standorte werden durch _altlast4web_ als HTTP-Ressource bereitgestellt. Ein Datenumbau ist somit nicht notwendig. Der GRETL-Job muss die Daten nur validieren und in das _stage_- resp. _live_-Schema importieren. Eine visuelle Validierung durch die zuständige Stellen im _stage_-Schema findet jedoch ebenfalls statt.
+=== Nachführung der ÖREB-Daten
+==== Bundesdaten, Codelisten, Bundesgesetze und -verordnungen
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundesdaten[`oereb_bundesdaten`]: ÖREB-Daten im Transfermodell. Werden jede Nacht importiert. +
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundesgesetze[`oereb_bundesgesetze`]: Gesetzlichen Grundlagen (Gesetz und Verordnungen) des Bundes. Werden manuell, «on demand» importiert. +
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundescodelisten[`oereb_bundescodelisten`]: Codelisten des Bundes. Werden manuell, «on demand» importiert.
 
-Weitere Daten: Diese werden mit einem GRETL-Job aus der Edit-DB direkt («Db2Db-Task») in die ÖREB-Datenbank kopiert.
+Bundesdaten werden durch das zuständige Bundesamt nachgeführt und auf der Webseite https://data.geo.admin.ch/[https://data.geo.admin.ch/] im entsprechenden Unterordner bereitgestellt. Analog werden die Codelisten und die Bundesgesetze und -verordnungen behandelt (http://models.geo.admin.ch/V_D/OeREB/[http://models.geo.admin.ch/V_D/OeREB/]).
 
+==== Kantonale Daten 
+===== Nutzungsplanung
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_nutzungsplanung[`oereb_nutzungsplanung`]: Job wird manuell, «on demand» ausgelöst.
+
+Die Nutzungsplanung (inkl. Waldabstandslinien und Lärmempfindlichkeitsstufen in Nutzungszonen) wird durch externe Planungs- und Ingenieurbüros in einem kantonalen Datenmodell erfasst und an den Kanton geliefert. Das Amt für Raumplanung verifiziert diese und das Amt für Geoinformation importiert diese in die Edit-DB.
+
+===== Waldgrenzen
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_waldgrenzen[`oereb_waldgrenzen`]: Job wird manuell, «on demand» ausgelöst.
+
+Die Waldgrenzen werden in einem kantonalen Datenmodell durch das Amt für Jagd, Wald und Fischerei (AWJF) in der Edit-DB nachgeführt.
+
+===== Kataster der belasteten Standorte
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_belastete_standorte[`oereb_belastete_standorte`]: Job wird manuell, «on demand» ausgelöst.
+
+Für die Nachführung des Katasters der belasteten Standorte setzt das Amt für Umwelt (AfU) die Software _altlast4web_ ein. Die Software läuft ausserhalb der GDI.
+
+Die Daten des Kataster der belasteten Standorte werden durch _altlast4web_ als HTTP-Ressource bereitgestellt. Ein Datenumbau ist somit nicht notwendig. Der GRETL-Job muss die Daten nur validieren und in das _stage_- resp. _live_-Schema importieren. Eine visuelle Validierung durch die zuständige Stelle im _stage_-Schema findet jedoch ebenfalls statt.
+
+===== Planerischer Gewässerschutz
+GRETL-Jobs: + 
+
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_grundwasserschutz[`oereb_grundwasserschutz`]: Job wird manuell, «on demand» ausgelöst.
+
+Der planerische Gewässerschutz wird im MGDM durch das Amt für Umwelt in der Edit-DB nachgeführt.
+
+===== Schützenswerte Objekte / Einzelschutzverfügungen
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_einzelschutz_denkmal[`oereb_einzelschutz_denkmal`]: Job wird manuell, «on demand» ausgelöst. (tdb)  +
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_einzelschutz_geotop[`oereb_einzelschutz_geotop`]: Job wird manuell, «on demand» ausgelöst. (tdb)
+
+Diese ÖREB-Kataster-relevanten Daten werden durch das Amt für Archäologie und Denkmalschutz in der Fachanwendung _ArtPlus_ ausserhalb der kantonalen GDI nachgeführt. Eine Teilmenge der Daten wird täglich in die Edit-DB importiert.
+
+Geotope werden in einem kantonalen Datenmodell durch das Amt für Umwelt (AFU) in der Edit-DB nachgeführt.
+
+=== Nachführung der kantonalen Gesetze
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_kantonale_gesetze[`oereb_kantonale_gesetze`]: Job wird manuell, «on demand» ausgelöst.
+
+Das AGI führt die kantonalen Gesetze im Auftrag der Staatskanzlei nach. Da es sich um wenige Gesetze und wenige Mutationen handelt, geschieht die Nachführung direkt in der INTERLIS-Transferdatei im Rahmenmodell. Die Daten werden anschliessend wieder in den dafür vorgesehen Ordner im Filesystem kopiert und die Datei ist als HTTP-Ressource greifbar: https://geo.so.ch/geodata/ch.so.sk.gesetze.oereb/[https://geo.so.ch/geodata/ch.so.sk.gesetze.oereb/]. 
+
+=== Nachführung ÖREB-Annexmodell
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_annex[`oereb_annex`]: Job wird jede Nacht automatisch ausgeführt.
+
+Die Daten werden durch das AGI in der Edit-DB nachgeführt. Das Datum der Daten der amtlichen Vermessung wird automatisch jede Nacht mit dem GRETL-Job aktualisiert.
+
+=== Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)
+GRETL-Jobs: + 
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_av[`oereb_av`]: Job wird jede Nacht automatisch ausgeführt. +
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_plzo[`oereb_plzo`]: Job wird jede Nacht automatisch ausgeführt. +
+https://github.com/sogis/oereb-gretljobs/tree/master/oereb_gbkreise[`oereb_gbkreise`]: Job wird jede Nacht automatisch ausgeführt.
+
+Die Daten werden mit einem GRETL-Job aus der Edit-DB direkt («Db2Db-Task») in die ÖREB-Datenbank kopiert. Die AV-Daten werden von den zuständigen Nachführungsgeometern mindestens einmal wöchentlich geliefert und anschliessend automatisch in die Edit-DB importiert.

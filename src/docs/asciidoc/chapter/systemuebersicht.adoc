@@ -9,7 +9,7 @@ image::oereb-system-architektur-v03-Page-1.png[oereb-architektur]
 
 Bestehende GDI-Komponenten sind blau, ÖREB-Komponenten lachsfarben. Der Web GIS Client und die Datenablage müssten korrekterweise beide Farben aufweisen.
 
-Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten müssen nur in die ÖREB-DB importiert werden, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, ...) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: _live_ und _stage_. Das _stage_-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das _live_-Schema importiert.
+Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten werden direkt in die ÖREB-DB importiert, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, ...) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: _live_ und _stage_. Das _stage_-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das _live_-Schema importiert.
 
 === Komponenten
 Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden Komponenten:
@@ -35,7 +35,7 @@ Docker-Image: +
 https://hub.docker.com/r/sogis/oereb-db[https://hub.docker.com/r/sogis/oereb-db]
 
 
-In der ÖREB-Datenbank werden in zwei Schemen (_live_ und _stage_) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), die PLZ- und Ortschaftsperimeter und die Annexdaten.
+In der ÖREB-Datenbank werden in zwei Schemen (_live_ und _stage_) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), das amtliche Ortschaftsverzeichnis und die Annexdaten (Modell `OeREB_ExtractAnnex_V1_0`).
 
 Die Datenstruktur entspricht einem mit _ili2pg_ angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. Die  «flachgewalzten» Tabellen müssen zusätzlich 1:1 in eine View überführt werden und das JSON-Array zu einem Text gecasted werden, damit die eingesetzte QGIS-Server-Version damit umgehen kann.
 
@@ -110,7 +110,16 @@ https://geo.so.ch/models/AGI/OeREB_ExtractAnnex_V1_0.ili[https://geo.so.ch/model
 
 Im _ÖREB-Annexmodell_ werden Informationen verwaltet, die im Rahmenmodell (Transferstruktur) fehlen, aber für den Auszug notwendig sind: z.B. Opazität von WMS-Layer, Logos etc. Zudem dient es zum Freischalten einzelner Gemeinden und Themen (z.B. Nutzungsplanung).
 
-=== Dokumentenablage
+==== Web GIS Client Werkzeug «Grundstücksinformation»
+Service: + 
+https://github.com/qwc-services/[https://github.com/qwc-services/]
+
+Frontend: + 
+https://github.com/sourcepole/qwc2-extra[https://github.com/sourcepole/qwc2-extra]
+
+Das Werkzeug ist ein Bestandteil des Web GIS Client und hat eigene Konfigurationensparameter. Diese Werkzeug ruft den ÖREB-Auszug (XML oder PDF) für das betroffene Grundstück auf und stellt den WMS zum passenden ÖREB-Katasterthema im Kartenfenster dar.
+
+==== Dokumentenablage
 Dokumentenablage: + 
 https://geo.so.ch/docs/ch.so.arp.zonenplaene/Zonenplaene_pdf/[https://geo.so.ch/docs/ch.so.arp.zonenplaene/Zonenplaene_pdf/]
 
