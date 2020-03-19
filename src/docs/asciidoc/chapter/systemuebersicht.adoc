@@ -16,7 +16,7 @@ Der ÖREB-Kataster des Kantons Solothurn besteht aus den folgenden Komponenten:
 
 - ÖREB-Datenbank
 - ÖREB-WMS
-- ÖREB Web Service 
+- ÖREB-Webservice 
 - ÖREB-Iconizer (integriert in GRETL) 
 - ÖREB GRETL-Jobs
 - ÖREB-Annexmodell
@@ -73,7 +73,7 @@ Nach jedem Commit wird auf Travis das Image neu gebuildet und innerhalb von 15 M
 
 Es wird QGIS 3.4 LTR eingesetzt.
 
-==== ÖREB Web Service
+==== ÖREB-Webservice
 Code-Repository: +
 https://github.com/claeis/oereb-web-service[https://github.com/claeis/oereb-web-service] +
 https://github.com/sogis/oereb-web-service-docker[https://github.com/sogis/oereb-web-service-docker]
@@ -81,9 +81,9 @@ https://github.com/sogis/oereb-web-service-docker[https://github.com/sogis/oereb
 Docker-Image: +
 https://hub.docker.com/r/sogis/oereb-web-service[https://hub.docker.com/r/sogis/oereb-web-service]
 
-Der ÖREB Web Service ist die M2M-Schnittstelle des ÖREB-Katasters und dient dem Bezug des ÖREB-Katasterauszuges (XML und PDF) als Downloaddienst. Das Bundesamt für Landestopografie hat dazu zwei Weisungen (https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-XML-Aufruf_de.pdf.html[«ÖREB-Webservice (Aufruf eines Auszugs)»] und https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf.html[«ÖREB-Kataster - DATA-Extract»]) erlassen.
+Der ÖREB-Webservice ist die M2M-Schnittstelle des ÖREB-Katasters und dient dem Bezug des ÖREB-Katasterauszuges (XML und PDF) als Downloaddienst. Das Bundesamt für Landestopografie hat dazu zwei Weisungen (https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-XML-Aufruf_de.pdf.html[«ÖREB-Webservice (Aufruf eines Auszugs)»] und https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf.html[«ÖREB-Kataster - DATA-Extract»]) erlassen.
 
-Die Umwandlung des XML nach PDF übernimmt die im Web Service integrierte Bibliothek https://github.com/openoereb/pdf4oereb[_pdf4oereb_].
+Die Umwandlung des XML nach PDF übernimmt die im Webservice integrierte Bibliothek https://github.com/openoereb/pdf4oereb[_pdf4oereb_].
 
 Der ÖREB Web Service des Kantons Solothurn unterstützt nur das Ausgabeformat XML und den reduzierten PDF-Auszug.
 
