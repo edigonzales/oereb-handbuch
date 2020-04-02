@@ -8,7 +8,9 @@
 :email: {author_email}
 :title-page:
 :sectnums:
-:chapter-label: 
+:chapter-label:
+:sectlinks:
+:sectanchors:
 :revdate: {docdate}
 :figure-caption: Abbildung
 
