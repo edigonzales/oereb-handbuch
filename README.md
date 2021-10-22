@@ -4,7 +4,6 @@ Handbuch OEREB-Kataster Kanton Solothurn
 
 ## System Requirements
 
-* gradle
 * java
 
 ## General usage
@@ -17,12 +16,12 @@ git clone https://github.com/edigonzales/oereb-handbuch.git $HOME/Projekte/oereb
 
 HTML-Output:
 ```
-gradle asciidoctor
+./gradlew asciidoctor
 ```
 
 PDF-Output:
 ```
-gradle asciidoctorPDF
+./gradlew asciidoctorPDF
 ```
 
 ## Github pages
