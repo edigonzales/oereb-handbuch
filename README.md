@@ -11,7 +11,7 @@ Handbuch OEREB-Kataster Kanton Solothurn
 Clone this repository:
 
 ```
-git clone https://github.com/edigonzales/oereb-handbuch.git $HOME/Projekte/oereb-handbuch
+git clone https://github.com/sogis/oereb-handbuch.git $HOME/Projekte/oereb-handbuch
 ```
 
 HTML-Output:
