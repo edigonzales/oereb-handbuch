@@ -24,10 +24,10 @@ asciidoctorj {  // or asciidoctor.asciidoctorj
 }
 
 pdfThemes {
-    github 'sogis-basic', { 
+    github 'sogis-frutiger', { 
         organisation = 'sogis' 
         repository = 'sogis-docs-asciidoctor-themes' 
-        relativePath = 'sogis-basic' 
+        relativePath = 'sogis-frutiger' 
         branch = 'master' 
     }
 }
@@ -35,7 +35,7 @@ pdfThemes {
 asciidoctorPdf {
     attributes \
         imagesdir : "src/docs/asciidoc/images"
-    theme 'sogis-basic'
+    theme 'sogis-frutiger'
     // not posssible with github theme
     //fontsDir file('src/docs/asciidoc/theme')
 }
