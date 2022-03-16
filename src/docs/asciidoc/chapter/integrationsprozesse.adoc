@@ -7,6 +7,11 @@ Die Integrationsprozesse sind dafür verantwortlich, dass die für den Betrieb d
 - ÖREB-Annexmodell
 - AV-Daten (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)
 
+=== Inbetriebnahme
+**TODO V2_0**: 
+- Importieren der kantonalen Konfigurationsdatasets. Anschliessend Nachführung dieser Daten in der DB.
+- Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. `--update`-Problematik: Bug und grundsätzlich tricky.
+
 [#datenintegration]
 === Datenintegration
 Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:
