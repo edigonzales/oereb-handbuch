@@ -443,8 +443,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="details">
 <span id="author" class="author">Amt für Geoinformation Kanton Solothurn</span><br>
 <span id="email" class="email"><a href="mailto:agi@bd.so.ch">agi@bd.so.ch</a></span><br>
-<span id="revnumber">version 1.0.18,</span>
-<span id="revdate">2020-04-02</span>
+<span id="revnumber">version 2.0.1,</span>
+<span id="revdate">2022-03-21</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Inhaltsverzeichnis</div>
@@ -472,11 +472,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#_integrationsprozesse">4. Integrationsprozesse</a>
 <ul class="sectlevel2">
-<li><a href="#datenintegration">4.1. Datenintegration</a></li>
-<li><a href="#_nachführung_der_öreb_daten">4.2. Nachführung der ÖREB-Daten</a></li>
-<li><a href="#_nachführung_der_kantonalen_gesetze">4.3. Nachführung der kantonalen Gesetze</a></li>
-<li><a href="#_nachführung_öreb_annexmodell">4.4. Nachführung ÖREB-Annexmodell</a></li>
-<li><a href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.5. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></li>
+<li><a href="#_inbetriebnahme">4.1. Inbetriebnahme</a></li>
+<li><a href="#datenintegration">4.2. Datenintegration</a></li>
+<li><a href="#_nachführung_der_öreb_daten">4.3. Nachführung der ÖREB-Daten</a></li>
+<li><a href="#_nachführung_der_kantonalen_gesetze">4.4. Nachführung der kantonalen Gesetze</a></li>
+<li><a href="#_nachführung_öreb_annexmodell">4.5. Nachführung ÖREB-Annexmodell</a></li>
+<li><a href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.6. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></li>
 </ul>
 </li>
 <li><a href="#_changemanagement">5. Changemanagement</a>
@@ -909,7 +910,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="sect2">
-<h3 id="datenintegration"><a class="anchor" href="#datenintegration"></a><a class="link" href="#datenintegration">4.1. Datenintegration</a></h3>
+<h3 id="_inbetriebnahme"><a class="anchor" href="#_inbetriebnahme"></a><a class="link" href="#_inbetriebnahme">4.1. Inbetriebnahme</a></h3>
+<div class="paragraph">
+<p><strong>TODO V2_0</strong>:
+- Importieren der kantonalen Konfigurationsdatasets. Anschliessend Nachführung dieser Daten in der DB.
+- Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. <code>--update</code>-Problematik: Bug und grundsätzlich tricky.
+- Beispiele für Update-Befehle
+- Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)
+  1. zustaendigeStelle
+  2. Gesetze
+  3. Themen
+  4. Logo
+  5. Text
+  6. Verfuegbarkeit
+  7. Grundbuchkreis
+- Reihenfolge Bundeskonfig-Job-Ausführung:
+  1. oerebv2_bundesgesetze
+  2. oerebv2_bundeskonfiguration</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="datenintegration"><a class="anchor" href="#datenintegration"></a><a class="link" href="#datenintegration">4.2. Datenintegration</a></h3>
 <div class="paragraph">
 <p>Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:</p>
 </div>
@@ -924,9 +945,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nachführung_der_öreb_daten"><a class="anchor" href="#_nachführung_der_öreb_daten"></a><a class="link" href="#_nachführung_der_öreb_daten">4.2. Nachführung der ÖREB-Daten</a></h3>
+<h3 id="_nachführung_der_öreb_daten"><a class="anchor" href="#_nachführung_der_öreb_daten"></a><a class="link" href="#_nachführung_der_öreb_daten">4.3. Nachführung der ÖREB-Daten</a></h3>
 <div class="sect3">
-<h4 id="_bundesdaten_codelisten_bundesgesetze_und_verordnungen"><a class="anchor" href="#_bundesdaten_codelisten_bundesgesetze_und_verordnungen"></a><a class="link" href="#_bundesdaten_codelisten_bundesgesetze_und_verordnungen">4.2.1. Bundesdaten, Codelisten, Bundesgesetze und -verordnungen</a></h4>
+<h4 id="_bundesdaten_codelisten_bundesgesetze_und_verordnungen"><a class="anchor" href="#_bundesdaten_codelisten_bundesgesetze_und_verordnungen"></a><a class="link" href="#_bundesdaten_codelisten_bundesgesetze_und_verordnungen">4.3.1. Bundesdaten, Codelisten, Bundesgesetze und -verordnungen</a></h4>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
 <a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundesdaten"><code>oereb_bundesdaten</code></a>: ÖREB-Daten im Transfermodell. Werden jede Nacht importiert.<br>
@@ -938,7 +959,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect3">
-<h4 id="_kantonale_daten"><a class="anchor" href="#_kantonale_daten"></a><a class="link" href="#_kantonale_daten">4.2.2. Kantonale Daten</a></h4>
+<h4 id="_kantonale_daten"><a class="anchor" href="#_kantonale_daten"></a><a class="link" href="#_kantonale_daten">4.3.2. Kantonale Daten</a></h4>
 <div class="sect4">
 <h5 id="_nutzungsplanung"><a class="anchor" href="#_nutzungsplanung"></a><a class="link" href="#_nutzungsplanung">Nutzungsplanung</a></h5>
 <div class="paragraph">
@@ -1001,7 +1022,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nachführung_der_kantonalen_gesetze"><a class="anchor" href="#_nachführung_der_kantonalen_gesetze"></a><a class="link" href="#_nachführung_der_kantonalen_gesetze">4.3. Nachführung der kantonalen Gesetze</a></h3>
+<h3 id="_nachführung_der_kantonalen_gesetze"><a class="anchor" href="#_nachführung_der_kantonalen_gesetze"></a><a class="link" href="#_nachführung_der_kantonalen_gesetze">4.4. Nachführung der kantonalen Gesetze</a></h3>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
 <a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_kantonale_gesetze"><code>oereb_kantonale_gesetze</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
@@ -1011,7 +1032,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nachführung_öreb_annexmodell"><a class="anchor" href="#_nachführung_öreb_annexmodell"></a><a class="link" href="#_nachführung_öreb_annexmodell">4.4. Nachführung ÖREB-Annexmodell</a></h3>
+<h3 id="_nachführung_öreb_annexmodell"><a class="anchor" href="#_nachführung_öreb_annexmodell"></a><a class="link" href="#_nachführung_öreb_annexmodell">4.5. Nachführung ÖREB-Annexmodell</a></h3>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
 <a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_annex"><code>oereb_annex</code></a>: Job wird jede Nacht automatisch ausgeführt.</p>
@@ -1021,7 +1042,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"><a class="anchor" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"></a><a class="link" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.5. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></h3>
+<h3 id="_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"><a class="anchor" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"></a><a class="link" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.6. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></h3>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
 <a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_av"><code>oereb_av</code></a>: Job wird jede Nacht automatisch ausgeführt.<br>
@@ -1054,8 +1075,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0.18<br>
-Last updated 2020-04-02 05:10:45 UTC
+Version 2.0.1<br>
+Last updated 2022-03-21 11:34:27 UTC
 </div>
 </div>
 </body>

@@ -466,6 +466,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="sect2">
+<h3 id="_inbetriebnahme">Inbetriebnahme</h3>
+<div class="paragraph">
+<p><strong>TODO V2_0</strong>:
+- Importieren der kantonalen Konfigurationsdatasets. Anschliessend Nachführung dieser Daten in der DB.
+- Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. <code>--update</code>-Problematik: Bug und grundsätzlich tricky.
+- Beispiele für Update-Befehle
+- Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)
+  1. zustaendigeStelle
+  2. Gesetze
+  3. Themen
+  4. Logo
+  5. Text
+  6. Verfuegbarkeit
+  7. Grundbuchkreis
+- Reihenfolge Bundeskonfig-Job-Ausführung:
+  1. oerebv2_bundesgesetze
+  2. oerebv2_bundeskonfiguration</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="datenintegration">Datenintegration</h3>
 <div class="paragraph">
 <p>Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:</p>
@@ -594,8 +614,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0.18<br>
-Last updated 2020-04-02 05:10:45 UTC
+Version 2.0.1<br>
+Last updated 2022-03-21 11:34:27 UTC
 </div>
 </div>
 </body>
