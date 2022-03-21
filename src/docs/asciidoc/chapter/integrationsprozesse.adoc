@@ -11,6 +11,18 @@ Die Integrationsprozesse sind dafür verantwortlich, dass die für den Betrieb d
 **TODO V2_0**: 
 - Importieren der kantonalen Konfigurationsdatasets. Anschliessend Nachführung dieser Daten in der DB.
 - Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. `--update`-Problematik: Bug und grundsätzlich tricky.
+- Beispiele für Update-Befehle
+- Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)
+  1. zustaendigeStelle 
+  2. Gesetze
+  3. Themen
+  4. Logo
+  5. Text
+  6. Verfuegbarkeit
+  7. Grundbuchkreis
+- Reihenfolge Bundeskonfig-Job-Ausführung:
+  1. oerebv2_bundesgesetze
+  2. oerebv2_bundeskonfiguration
 
 [#datenintegration]
 === Datenintegration
