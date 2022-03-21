@@ -9,9 +9,10 @@ Die Integrationsprozesse sind dafür verantwortlich, dass die für den Betrieb d
 
 === Inbetriebnahme
 **TODO V2_0**: 
-- Importieren der kantonalen Konfigurationsdatasets. Anschliessend Nachführung dieser Daten in der DB.
+- Beschreiben, dass die Jobs (welche genau, v.a. auch Konfig) das Zeugs hochladen auf S3.
+- Importieren der kantonalen Konfigurationsdatasets, inkl. dataset-Namen. Anschliessend Nachführung dieser Daten in der DB.
 - Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. `--update`-Problematik: Bug und grundsätzlich tricky.
-- Beispiele für Update-Befehle
+- Update: welche Jobs funktionieren out-of-the-box, d.h. verwenden ili2pgupdate. Umgang mit Bug.
 - Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)
   1. zustaendigeStelle 
   2. Gesetze
