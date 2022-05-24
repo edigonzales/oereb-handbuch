@@ -9,6 +9,11 @@ Die Integrationsprozesse sind dafür verantwortlich, dass die für den Betrieb d
 
 === Inbetriebnahme
 **TODO V2_0**: 
+
+- anderer iconizer
+- alle Daten werden nach S3 hochgeladen
+- nachgeführt werden konfig sachen mit QGIS in der DB (oder dbeaver oder sql)
+- 
 - Beschreiben, dass die Jobs (welche genau, v.a. auch Konfig) das Zeugs hochladen auf S3.
 - Importieren der kantonalen Konfigurationsdatasets, inkl. dataset-Namen. Anschliessend Nachführung dieser Daten in der DB.
 - Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. `--update`-Problematik: Bug und grundsätzlich tricky.
