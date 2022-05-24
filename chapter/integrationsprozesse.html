@@ -468,22 +468,74 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect2">
 <h3 id="_inbetriebnahme">Inbetriebnahme</h3>
 <div class="paragraph">
-<p><strong>TODO V2_0</strong>:
-- Beschreiben, dass die Jobs (welche genau, v.a. auch Konfig) das Zeugs hochladen auf S3.
-- Importieren der kantonalen Konfigurationsdatasets, inkl. dataset-Namen. Anschliessend Nachführung dieser Daten in der DB.
-- Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. <code>--update</code>-Problematik: Bug und grundsätzlich tricky.
-- Update: welche Jobs funktionieren out-of-the-box, d.h. verwenden ili2pgupdate. Umgang mit Bug.
-- Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)
-  1. zustaendigeStelle
-  2. Gesetze
-  3. Themen
-  4. Logo
-  5. Text
-  6. Verfuegbarkeit
-  7. Grundbuchkreis
-- Reihenfolge Bundeskonfig-Job-Ausführung:
-  1. oerebv2_bundesgesetze
-  2. oerebv2_bundeskonfiguration</p>
+<p><strong>TODO V2_0</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>anderer iconizer</p>
+</li>
+<li>
+<p>alle Daten werden nach S3 hochgeladen</p>
+</li>
+<li>
+<p>nachgeführt werden konfig sachen mit QGIS in der DB (oder dbeaver oder sql)
+-</p>
+</li>
+<li>
+<p>Beschreiben, dass die Jobs (welche genau, v.a. auch Konfig) das Zeugs hochladen auf S3.</p>
+</li>
+<li>
+<p>Importieren der kantonalen Konfigurationsdatasets, inkl. dataset-Namen. Anschliessend Nachführung dieser Daten in der DB.</p>
+</li>
+<li>
+<p>Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. <code>--update</code>-Problematik: Bug und grundsätzlich tricky.</p>
+</li>
+<li>
+<p>Update: welche Jobs funktionieren out-of-the-box, d.h. verwenden ili2pgupdate. Umgang mit Bug.</p>
+</li>
+<li>
+<p>Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>zustaendigeStelle</p>
+</li>
+<li>
+<p>Gesetze</p>
+</li>
+<li>
+<p>Themen</p>
+</li>
+<li>
+<p>Logo</p>
+</li>
+<li>
+<p>Text</p>
+</li>
+<li>
+<p>Verfuegbarkeit</p>
+</li>
+<li>
+<p>Grundbuchkreis</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Reihenfolge Bundeskonfig-Job-Ausführung:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>oerebv2_bundesgesetze</p>
+</li>
+<li>
+<p>oerebv2_bundeskonfiguration</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -615,8 +667,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.0.2<br>
-Last updated 2022-03-21 17:16:32 UTC
+Version 2.0.3<br>
+Last updated 2022-05-24 17:51:05 UTC
 </div>
 </div>
 </body>
