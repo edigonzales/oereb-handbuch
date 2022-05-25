@@ -8,7 +8,7 @@ apply from: "$rootDir/gradle/versioning.gradle"
 
 repositories {
     jcenter()
-    maven { url 'http://rubygems-proxy.torquebox.org/releases' }
+    maven { url 'https://rubygems-proxy.torquebox.org/releases' }
     mavenCentral()
 }
 
