@@ -57,5 +57,5 @@ task deleteFonts(type: Delete) {
     delete 'fonts'
 }
 
-asciidoctorPdf.dependsOn downloadFonts
-asciidoctorPdf.finalizedBy deleteFonts
+//asciidoctorPdf.dependsOn downloadFonts
+//asciidoctorPdf.finalizedBy deleteFonts
