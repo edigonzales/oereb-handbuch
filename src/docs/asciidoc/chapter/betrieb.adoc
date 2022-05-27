@@ -36,7 +36,7 @@ Die Geobasisdaten der ÖREB-Katasterthemen enthalten ausschliesslich nicht-sensi
 Die Rechtsvorschriften werden ohne sensible Daten publiziert. Die entsprechende Bearbeitung der Rechtsvorschriften liegt in der Verantwortung der zuständigen Stelle.
 
 ==== Statistiken, Kennzahlen und Messgrössen
-Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge über den Web GIS Client werden mit https://matomo.org/[_Matomo_] protokolliert und können ausgewertet werden. Diese Auswertungen dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.
+Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge über den Web GIS Client werden mit https://matomo.org/[_Matomo_] protokolliert und können ausgewertet werden. Die Logdateien des API-Gateway werden zudem mittels https://logit.io/[_logit.io_] ausgewertet. Diese Auswertungen (_Matomo_ und _logit.io_) dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.
 
 ==== Vorgehen im bei Datenfehler (inkl. organisatorische Aspekte wie Kommunikation etc.)
 Fehler in den Geobasisdaten und Rechtsvorschriften, welche der KVS gemeldet werden, werden der zuständigen Stelle zur Korrektur gemeldet. Die Fehler sind je nach Art so schnell wie möglich zu beheben. 
@@ -53,7 +53,7 @@ Reihenfolge der Inbetriebnahme der Komponenten bei einem Neuaufsetzen:
 1. ÖREB-Datenbank
 2. ÖREB-WMS
 3. Deployen der ÖREB-GRETL-Jobs in Jenkins
-4. Importieren der Grundlagedaten (Codelisten, gesetzlichen Grundlagen (Bund und Kanton), Amtliche Vermessung (inkl. Grundbuchkreise), amtliches Ortschaftsverzeichnis) mit GRETL-Jobs
+4. Importieren der Konfiguration und Grundlagedaten. Siehe <<#inbetriebnahme>>
 5. Importieren der ÖREB-Transferdaten
 6. Installation des Werkzeuges im Web GIS Client.
 
