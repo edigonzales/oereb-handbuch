@@ -259,8 +259,8 @@ code {
 <div class="details">
 <span id="author" class="author">Amt für Geoinformation Kanton Solothurn</span><br>
 <span id="email" class="email"><a href="mailto:agi@bd.so.ch">agi@bd.so.ch</a></span><br>
-<span id="revnumber">version 2.0.7,</span>
-<span id="revdate">2022-05-26</span>
+<span id="revnumber">version 2.0.8,</span>
+<span id="revdate">2022-05-27</span>
 </div>
 <div id="toc" class="toc2">
 <div id="toctitle">Inhaltsverzeichnis</div>
@@ -288,12 +288,11 @@ code {
 </li>
 <li><a href="#_integrationsprozesse">4. Integrationsprozesse</a>
 <ul class="sectlevel2">
-<li><a href="#_inbetriebnahme">4.1. Inbetriebnahme</a></li>
+<li><a href="#inbetriebnahme">4.1. Inbetriebnahme (Daten-Erstintegration)</a></li>
 <li><a href="#datenintegration">4.2. Datenintegration</a></li>
 <li><a href="#_nachführung_der_öreb_daten">4.3. Nachführung der ÖREB-Daten</a></li>
-<li><a href="#_nachführung_der_kantonalen_gesetze">4.4. Nachführung der kantonalen Gesetze</a></li>
-<li><a href="#_nachführung_öreb_annexmodell">4.5. Nachführung ÖREB-Annexmodell</a></li>
-<li><a href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.6. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></li>
+<li><a href="#_nachführung_der_kantonalen_konfiguration">4.4. Nachführung der kantonalen Konfiguration</a></li>
+<li><a href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.5. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></li>
 </ul>
 </li>
 <li><a href="#_changemanagement">5. Changemanagement</a>
@@ -313,7 +312,23 @@ code {
 <p>Das ÖREB-Kataster-Handbuch des Kantons Solothurn dient der Organisation und Koordination der verschiedenen Abläufe des ÖREB-Katasters. Vertiefte (technische) Informationen zu den einzelnen Komponenten finden sich immer in den jeweiligen Github-Repositories.</p>
 </div>
 <div class="paragraph">
-<p>Zum besseren Verständnis müssen die in der Konzeptphase erarbeiteten Dokumente «Infrastruktur- und Betriebskonzept» (Version 1.0 vom 28. Januar 2019) und «Konzept Ersterfassung, Aufbereitung und Nachführung der ÖREB-Daten» (Version 1.0 vom 28. Januar 2019) beigezogen werden.</p>
+<p>Zum besseren Verständnis dienen folgende Dokumente:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ÖREB-Kataster V2.0: «Infrastruktur- und Betriebskonzept» (Version 1.0 vom 12. Januar 2022)</p>
+</li>
+<li>
+<p>ÖREB-Kataster V2.0: «Neue Themen» (Version 1.3 vom 28. Februar 2022)</p>
+</li>
+<li>
+<p>ÖREB-Kataster V1.0: «Infrastruktur- und Betriebskonzept» (Version 1.0 vom 28. Januar 2019)</p>
+</li>
+<li>
+<p>ÖREB-Kataster V1.0: «Konzept Ersterfassung, Aufbereitung und Nachführung der ÖREB-Daten» (Version 1.0 vom 28. Januar 2019)</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -326,7 +341,7 @@ code {
 <p>Die katasterverantwortliche Stelle nach Art. 17 Abs. 2 ÖREBKV ist das Amt für Geoinformation (AGI).</p>
 </div>
 <div class="paragraph">
-<p>In Zusammenarbeit mit dem Amt für Informatik und Organisation (AIO) stellt sie die ÖREB-Kataster-Infrastruktur bereit und betreibt diese selbständig. Sie nimmt die Daten der zuständigen Stellen in den Kataster auf, gewährleistet die Verfügbarkeit der Daten und stellt den Inhalt des Katasters als dynamischen und statischen Auszug via Geoportal zur Verfügung. Sie verlinkt im Auftrag der zuständigen Stellen die gesetzlichen Grundlagen mit den ÖREB-Daten.</p>
+<p>In Zusammenarbeit mit dem Amt für Informatik und Organisation (AIO) stellt sie die ÖREB-Kataster-Infrastruktur bereit und betreibt diese selbständig. Sie nimmt die Daten der zuständigen Stellen in den Kataster auf, gewährleistet die Verfügbarkeit der Daten und stellt den Inhalt des Katasters als dynamischen und statischen Auszug via Geoportal zur Verfügung. Sie verknüpft im Auftrag der zuständigen Stellen die gesetzlichen Grundlagen mit den ÖREB-Daten.</p>
 </div>
 <div class="paragraph">
 <p>Sie definiert die technischen Rahmenbedingungen für die Erhebung und Nachführung der ÖREB-Daten.</p>
@@ -367,7 +382,7 @@ code {
 <p>Bestehende GDI-Komponenten sind blau, ÖREB-Komponenten lachsfarben. Der Web GIS Client und die Datenablage müssten korrekterweise beide Farben aufweisen.</p>
 </div>
 <div class="paragraph">
-<p>Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten werden direkt in die ÖREB-DB importiert, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, &#8230;&#8203;) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: <em>live</em> und <em>stage</em>. Das <em>stage</em>-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das <em>live</em>-Schema importiert.</p>
+<p>Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema (<code>&lt;amt&gt;_&lt;thema&gt;_oerebv2</code>) in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten werden direkt in die ÖREB-DB importiert, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, &#8230;&#8203;) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: <em>live</em> und <em>stage</em>. Das <em>stage</em>-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das <em>live</em>-Schema importiert.</p>
 </div>
 </div>
 <div class="sect2">
@@ -384,16 +399,13 @@ code {
 <p>ÖREB-WMS</p>
 </li>
 <li>
-<p>ÖREB-Webservice</p>
+<p>ÖREB-Webservice (inkl. pdf4oereb-Bibliothek)</p>
 </li>
 <li>
-<p>ÖREB-Iconizer (integriert in GRETL)</p>
+<p>ÖREB-Iconizer</p>
 </li>
 <li>
 <p>ÖREB GRETL-Jobs</p>
-</li>
-<li>
-<p>ÖREB-Annexmodell</p>
 </li>
 <li>
 <p>ÖREB Web GIS Client (Bestandteil des Web GIS Clients)</p>
@@ -413,26 +425,26 @@ code {
 <h4 id="oereb_datenbank"><a class="anchor" href="#oereb_datenbank"></a><a class="link" href="#oereb_datenbank">2.2.1. ÖREB-Datenbank</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis/oereb-db">https://github.com/sogis/oereb-db</a></p>
+<a href="https://github.com/sogis-oereb/oereb-db">https://github.com/sogis-oereb/oereb-db</a></p>
 </div>
 <div class="paragraph">
 <p>Docker-Image:<br>
 <a href="https://hub.docker.com/r/sogis/oereb-db">https://hub.docker.com/r/sogis/oereb-db</a></p>
 </div>
 <div class="paragraph">
-<p>In der ÖREB-Datenbank werden in zwei Schemen (<em>live</em> und <em>stage</em>) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), das amtliche Ortschaftsverzeichnis und die Annexdaten (Modell <code>OeREB_ExtractAnnex_V1_0</code>).</p>
+<p>In der ÖREB-Datenbank werden in zwei Schemen (<em>live</em> und <em>stage</em>) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), das amtliche Ortschaftsverzeichnis und die Konfigurationsdaten.</p>
 </div>
 <div class="paragraph">
-<p>Die Datenstruktur entspricht einem mit <em>ili2pg</em> angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. Die  «flachgewalzten» Tabellen müssen zusätzlich 1:1 in eine View überführt werden und das JSON-Array zu einem Text gecasted werden, damit die eingesetzte QGIS-Server-Version damit umgehen kann.</p>
+<p>Die Datenstruktur entspricht einem mit <em>ili2pg</em> angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Dazu wurde ein sehr einfache Datenmodell (<code>SO_AGI_OeREB_WMS_20220222</code>) geschrieben. Die Dokumente, welche in der Tabelle als JSON-Array gespeichert werden, wurden nicht als Strukturen ausmodelliert, da dies in der Datebank zu JSON-Spalten führen würde, die wiederum mittels View zu Text gecastet werden müssen, weil QGIS-Server nicht damit umgehen kann. Somit wird das JSON-Array als einfacher Text modelliert und gespeichert.</p>
 </div>
 <div class="paragraph">
 <p>Das <em>stage</em>-Schema dient der Validierung der Daten durch die zuständigen Stellen.</p>
 </div>
 <div class="paragraph">
-<p>Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem <a href="https://github.com/sogis/oereb-db/blob/master/create_schema_sql_scripts.sh">Bash-Skript</a> durchgeführt.</p>
+<p>Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem einem <a href="https://github.com/sogis-oereb/oereb-db/blob/main/create_schema_sql.java">jBang-Java-Skript</a> durchgeführt.</p>
 </div>
 <div class="paragraph">
-<p>Für Test- und Entwicklungszwecken wird mit Travis ein <a href="https://github.com/sogis/oereb-db/blob/master/Dockerfile">Docker-Image </a>der ÖREB-Datenbank erzeugt.</p>
+<p>Für Test- und Entwicklungszwecken wird mit Github Action ein <a href="https://github.com/sogis/oereb-db/blob/master/Dockerfile">Docker-Image</a> der ÖREB-Datenbank erzeugt.</p>
 </div>
 <div class="paragraph">
 <p>Im produktiven Betrieb wird nicht das Docker-Image verwendet, sondern die DDL-Queries werden mit <em>Ansible</em> auf dem bereits in der GDI vorhandenen Datenbankserver und -cluster deployed. Es ist die einzige Softwarekomponente, die nicht mittels <em>Docker</em> betrieben wird.</p>
@@ -445,14 +457,14 @@ code {
 <h4 id="_öreb_wms"><a class="anchor" href="#_öreb_wms"></a><a class="link" href="#_öreb_wms">2.2.2. ÖREB-WMS</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis/oereb-wms">https://github.com/sogis/oereb-wms</a></p>
+<a href="https://github.com/sogis-oereb/oereb-wms">https://github.com/sogis-oereb/oereb-wms</a></p>
 </div>
 <div class="paragraph">
 <p>Docker-Image:<br>
 <a href="https://hub.docker.com/r/sogis/oereb-wms">https://hub.docker.com/r/sogis/oereb-wms</a></p>
 </div>
 <div class="paragraph">
-<p>Der ÖREB-WMS dient dazu die denormalisierten Views (siehe <a href="#oereb_datenbank">ÖREB-Datenbank</a>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direkt verwendet.</p>
+<p>Der ÖREB-WMS dient dazu die «flachgewalzten» Tabellen (siehe <a href="#oereb_datenbank">ÖREB-Datenbank</a>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direkt verwendet.</p>
 </div>
 <div class="paragraph">
 <p>Der WMS-Server exponiert zwei Endpunkte:</p>
@@ -468,19 +480,16 @@ code {
 </ul>
 </div>
 <div class="paragraph">
-<p>Die Trennung entstand zum Zeitpunkt, wo noch keine Daten (in der Transferstruktur) vorlagen und ist nicht zwinged notwendig. So können aber einfacher Änderungen an der Darstellung durchgespielt werden.</p>
-</div>
-<div class="paragraph">
-<p>Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das <a href="https://github.com/sogis/oereb-wms/blob/master/Dockerfile.qgisserver">Docker-Image</a> gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den <code>search_path</code> (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter <code>/etc/postgresql-common</code> in den Docker-Container gemountet.</p>
+<p>Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das <a href="https://github.com/sogis-oereb/oereb-wms/blob/master/Dockerfile.qgisserver">Docker-Image</a> gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den <code>search_path</code> (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter <code>/etc/postgresql-common</code> in den Docker-Container gemountet.</p>
 </div>
 <div class="paragraph">
 <p>Für den produktiven Einsatz wird somit nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.</p>
 </div>
 <div class="paragraph">
-<p>Nach jedem Commit wird auf Travis das Image neu gebuildet und innerhalb von 15 Minuten auf der <a href="https://ocp-console.so.ch/console/project/agi-oereb-test/overview">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
+<p>Nach jedem Commit wird mit einer Github Action das Image neu gebuildet und innerhalb von 15 Minuten auf der <a href="https://console.apps.ocp.so.ch/k8s/cluster/projects/agi-oerebv2-test">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
 </div>
 <div class="paragraph">
-<p>Es wird QGIS 3.4 LTR eingesetzt.</p>
+<p>Es wird QGIS 3.16 LTR eingesetzt. Das Dockerimage für die ARM64-Architektur verwendet QGIS 3.10 LTR aus dem offiziellen Ubuntu-Repository.</p>
 </div>
 </div>
 <div class="sect3">
@@ -498,50 +507,43 @@ code {
 <p>Der ÖREB-Webservice ist die M2M-Schnittstelle des ÖREB-Katasters und dient dem Bezug des ÖREB-Katasterauszuges (XML und PDF) als Downloaddienst. Das Bundesamt für Landestopografie hat dazu zwei Weisungen (<a href="https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-XML-Aufruf_de.pdf.html">«ÖREB-Webservice (Aufruf eines Auszugs)»</a> und <a href="https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf.html">«ÖREB-Kataster - DATA-Extract»</a>) erlassen.</p>
 </div>
 <div class="paragraph">
-<p>Die Umwandlung des XML nach PDF übernimmt die im Webservice integrierte Bibliothek <a href="https://github.com/openoereb/pdf4oereb"><em>pdf4oereb</em></a>.</p>
+<p>Die Umwandlung des XML nach PDF übernimmt die im Webservice integrierte Bibliothek <a href="https://github.com/sogis/pdf4oereb"><em>pdf4oereb</em></a>.</p>
 </div>
 <div class="paragraph">
-<p>Der ÖREB Web Service des Kantons Solothurn unterstützt nur das Ausgabeformat XML und den reduzierten PDF-Auszug.</p>
+<p>Der ÖREB Web Service des Kantons Solothurn unterstützt nur das Ausgabeformat XML.</p>
 </div>
 <div class="paragraph">
 <p>Alle benötigten Daten müssen in einem einzigen Schema in einer PostgreSQL-Datenbank vorliegen. Die Konfiguration (inkl. der Datenbank-Verbindungsparameter) wird mittels ENV-Variablen gesteuert.</p>
 </div>
 <div class="paragraph">
-<p>Jeder Commit im Code-Repository stösst einen Build-Prozess des Docker-Image-Repositories an. Das Docker-Image wird anschliessend automatisch in der <a href="https://ocp-console.so.ch/console/project/agi-oereb-test/browse/dc/oereb-web-service?tab=history">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
+<p>Jeder Commit im Code-Repository stösst einen Build-Prozess des Docker-Image-Repositories an. Das Docker-Image wird anschliessend automatisch in der <a href="https://console.apps.ocp.so.ch/k8s/cluster/projects/agi-oerebv2-test">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_öreb_iconizer"><a class="anchor" href="#_öreb_iconizer"></a><a class="link" href="#_öreb_iconizer">2.2.4. ÖREB-Iconizer</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/openoereb/oereb-iconizer">https://github.com/openoereb/oereb-iconizer</a></p>
+<a href="https://github.com/sogis/oereb-iconizer">https://github.com/sogis/oereb-iconizer</a></p>
 </div>
 <div class="paragraph">
-<p>Der <em>ÖREB-Iconizer</em> ist eine Java-Bibliothek, die zum Herstellen der einzelnen ÖREB-Symbole (als Bestandteil der Transferstruktur), verwendet wird. Weil der Symbol-Herstellungsprozess während des Datenumbaues «kantonale Daten - ÖREB-Rahmenmodell» geschehen muss und für diesen Schritt <a href="https://github.com/sogis/gretl"><em>GRETL</em></a> eingesetzt wird, wurde auf Basis der Bibliothek ein <a href="https://github.com/sogis/gretl/blob/master/docs/user/index.md#oerebiconizerqgis3">GRETL-Customtask</a> geschrieben.</p>
+<p>Der <em>ÖREB-Iconizer</em> ist ein Java-Programm, das zum Herstellen der einzelnen ÖREB-Symbole (als Bestandteil der Transferstruktur), verwendet wird. Die Symbole werden in einem manuellen Prozess hergestellt und als INTERLIS-Transferdatei zu den jeweiligen ÖREB-Gretl-Jobs kopiert. Während des Datenumbaus «kantonale Daten - ÖREB-Rahmenmodell» wird diese INTERLIS-Transferdatei importiert und das Symbol wird dem jeweiligen Symbol-Record des Rahmenmodells in der Datenbanktabelle zugewiesen. Da die Symbole nicht häufig ändern, ist dieser manuelle Herstellungsprozess der Symbole vertretbar.</p>
+</div>
+<div class="paragraph">
+<p>Die Befehle für die Herstellung der INTERLIS-Transferdatei sind im Github-Repository beschrieben.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="oereb-gretl-jobs"><a class="anchor" href="#oereb-gretl-jobs"></a><a class="link" href="#oereb-gretl-jobs">2.2.5. ÖREB GRETL-Jobs</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis/oereb-gretljobs">https://github.com/sogis/oereb-gretljobs</a></p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs">https://github.com/sogis-oereb/oereb-gretljobs</a></p>
 </div>
 <div class="paragraph">
-<p>Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.</p>
+<p>Die ÖREB-GRETL-Jobs werden für den Datenfluss eingesetzt. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_öreb_annexmodell"><a class="anchor" href="#_öreb_annexmodell"></a><a class="link" href="#_öreb_annexmodell">2.2.6. ÖREB-Annexmodell</a></h4>
-<div class="paragraph">
-<p>INTERLIS-Modellablage:<br>
-<a href="https://geo.so.ch/models/AGI/OeREB_ExtractAnnex_V1_0.ili">https://geo.so.ch/models/AGI/OeREB_ExtractAnnex_V1_0.ili</a></p>
-</div>
-<div class="paragraph">
-<p>Im <em>ÖREB-Annexmodell</em> werden Informationen verwaltet, die im Rahmenmodell (Transferstruktur) fehlen, aber für den Auszug notwendig sind: z.B. Opazität von WMS-Layer, Logos etc. Zudem dient es zum Freischalten einzelner Gemeinden und Themen (z.B. Nutzungsplanung).</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_web_gis_client_werkzeug_grundstücksinformation"><a class="anchor" href="#_web_gis_client_werkzeug_grundstücksinformation"></a><a class="link" href="#_web_gis_client_werkzeug_grundstücksinformation">2.2.7. Web GIS Client Werkzeug «Grundstücksinformation»</a></h4>
+<h4 id="_web_gis_client_werkzeug_grundstücksinformation"><a class="anchor" href="#_web_gis_client_werkzeug_grundstücksinformation"></a><a class="link" href="#_web_gis_client_werkzeug_grundstücksinformation">2.2.6. Web GIS Client Werkzeug «Grundstücksinformation»</a></h4>
 <div class="paragraph">
 <p>Service:<br>
 <a href="https://github.com/qwc-services/">https://github.com/qwc-services/</a></p>
@@ -555,7 +557,7 @@ code {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dokumentenablage"><a class="anchor" href="#_dokumentenablage"></a><a class="link" href="#_dokumentenablage">2.2.8. Dokumentenablage</a></h4>
+<h4 id="_dokumentenablage"><a class="anchor" href="#_dokumentenablage"></a><a class="link" href="#_dokumentenablage">2.2.7. Dokumentenablage</a></h4>
 <div class="paragraph">
 <p>Dokumentenablage:<br>
 <a href="https://geo.so.ch/docs/ch.so.arp.zonenplaene/Zonenplaene_pdf/">https://geo.so.ch/docs/ch.so.arp.zonenplaene/Zonenplaene_pdf/</a></p>
@@ -573,7 +575,7 @@ code {
 <div class="ulist">
 <ul>
 <li>
-<p>Test: Zum Testen neuer Funktionen und Bugfixes. Jeder Commit in einer Software-Komponente stösst die Build-Pipeline an (Travis). Ist der Build und das Testing erfolgreich, wird die Komponente nach maximal 15 Minuten neu deployed und steht dem Benutzer zur Verfügung.</p>
+<p>Test: Zum Testen neuer Funktionen und Bugfixes. Jeder Commit in einer Software-Komponente stösst die Build-Pipeline an (Github Action). Ist der Build und das Testing erfolgreich, wird die Komponente nach maximal 15 Minuten neu deployed und steht dem Benutzer zur Verfügung.</p>
 </li>
 <li>
 <p>Integration: Die Integrationsumgebung ist sehr nahe der Produktionsumgebung und dient vor allem für Abnahmetests und Systemintegrationstests. Manuelles Deployment.</p>
@@ -651,7 +653,7 @@ code {
 <div class="sect3">
 <h4 id="_statistiken_kennzahlen_und_messgrössen"><a class="anchor" href="#_statistiken_kennzahlen_und_messgrössen"></a><a class="link" href="#_statistiken_kennzahlen_und_messgrössen">3.1.5. Statistiken, Kennzahlen und Messgrössen</a></h4>
 <div class="paragraph">
-<p>Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge über den Web GIS Client werden mit <a href="https://matomo.org/"><em>Matomo</em></a> protokolliert und können ausgewertet werden. Diese Auswertungen dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.</p>
+<p>Die Katasterabfragen (dynamischer Auszug) und die PDF-Katasterauszüge über den Web GIS Client werden mit <a href="https://matomo.org/"><em>Matomo</em></a> protokolliert und können ausgewertet werden. Die Logdateien des API-Gateway werden zudem mittels <a href="https://logit.io/"><em>logit.io</em></a> ausgewertet. Diese Auswertungen (<em>Matomo</em> und <em>logit.io</em>) dienen als Grundlage für die Berichterstattung zuhanden der Katasteraufsicht und für die Tätigkeitsberichte der kantonalen Verwaltung.</p>
 </div>
 </div>
 <div class="sect3">
@@ -687,7 +689,7 @@ code {
 <p>Deployen der ÖREB-GRETL-Jobs in Jenkins</p>
 </li>
 <li>
-<p>Importieren der Grundlagedaten (Codelisten, gesetzlichen Grundlagen (Bund und Kanton), Amtliche Vermessung (inkl. Grundbuchkreise), amtliches Ortschaftsverzeichnis) mit GRETL-Jobs</p>
+<p>Importieren der Konfiguration und Grundlagedaten. Siehe <a href="#inbetriebnahme">Inbetriebnahme (Daten-Erstintegration)</a></p>
 </li>
 <li>
 <p>Importieren der ÖREB-Transferdaten</p>
@@ -726,76 +728,80 @@ code {
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_inbetriebnahme"><a class="anchor" href="#_inbetriebnahme"></a><a class="link" href="#_inbetriebnahme">4.1. Inbetriebnahme</a></h3>
+<h3 id="inbetriebnahme"><a class="anchor" href="#inbetriebnahme"></a><a class="link" href="#inbetriebnahme">4.1. Inbetriebnahme (Daten-Erstintegration)</a></h3>
 <div class="paragraph">
-<p><strong>TODO V2_0</strong>:</p>
+<p>Bei der Daten-Erstintegration in die Edit-DB für spätere Bearbeitung der kantonalen Konfigurationsdaten ist die Importreihenfolge der verschiedenen Datensätze entscheidend. Es handelt sich ausschliesslich um INTERLIS-Transferdateien. Diese sind teilweise voneinander abhängig, so dass in der Datenbank Fremdschlüssel entstehen. Dies trifft vor allem auf die Konfigurationen zu. Es ergibt sich folgende Reihenfolge, wobei ab (6.) die Reihenfolge egal ist:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>anderer iconizer</p>
-</li>
-<li>
-<p>alle Daten werden nach S3 hochgeladen</p>
-</li>
-<li>
-<p>nachgeführt werden konfig sachen mit QGIS in der DB (oder dbeaver oder sql)
--</p>
-</li>
-<li>
-<p>Beschreiben, dass die Jobs (welche genau, v.a. auch Konfig) das Zeugs hochladen auf S3.</p>
-</li>
-<li>
-<p>Importieren der kantonalen Konfigurationsdatasets, inkl. dataset-Namen. Anschliessend Nachführung dieser Daten in der DB.</p>
-</li>
-<li>
-<p>Einzelne Gretljobs für die Konfigdatasets. Reihenfolge. <code>--update</code>-Problematik: Bug und grundsätzlich tricky.</p>
-</li>
-<li>
-<p>Update: welche Jobs funktionieren out-of-the-box, d.h. verwenden ili2pgupdate. Umgang mit Bug.</p>
-</li>
-<li>
-<p>Reihenfolge einmaliger Import der Kantons-Konfig in die Edit-DB: (ab 4. egal)</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>zustaendigeStelle</p>
+<p>Zuständige Stellen (Kanton)</p>
 </li>
 <li>
-<p>Gesetze</p>
+<p>Gesetze (Kanton)</p>
 </li>
 <li>
-<p>Themen</p>
+<p>Gesetze (Bund)</p>
 </li>
 <li>
-<p>Logo</p>
+<p>Themen (Bund)</p>
 </li>
 <li>
-<p>Text</p>
+<p>Themen (Kanton)</p>
 </li>
 <li>
-<p>Verfuegbarkeit</p>
+<p>Logos (Kanton)</p>
 </li>
 <li>
-<p>Grundbuchkreis</p>
+<p>Texte (Kanton)</p>
+</li>
+<li>
+<p>Verfügbarkeit (Kanton)</p>
+</li>
+<li>
+<p>Grundbuchkreise (Kanton)</p>
 </li>
 </ol>
 </div>
-</li>
-<li>
-<p>Reihenfolge Bundeskonfig-Job-Ausführung:</p>
+<div class="paragraph">
+<p>Siehe auch <a href="https://github.com/sogis-oereb/oereb-gretljobs/blob/main/DEVELOP.md#import-config-data-into-gdi-db">DEVELOP.md</a> für die Dataset-Identifier und ili2pg-Befehle.</p>
+</div>
+<div class="paragraph">
+<p>Daraus ergibt sich auch die Reihenfolge wie die Gretl-Jobs für die Konfigurationen ausgeführt werden müssen, um Daten von der Edit-DB in die ÖREB-DB zu transferieren:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>oerebv2_bundesgesetze</p>
+<p><code>oerebv2_bundesgesetze</code></p>
 </li>
 <li>
-<p>oerebv2_bundeskonfiguration</p>
+<p><code>oerebv2_bundeskonfiguration</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_zustaendigestellen</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_gesetze</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_themen</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_logo</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_text</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_verfuegbarkeit</code></p>
+</li>
+<li>
+<p><code>oerebv2_konfiguration_grundbuchkreis</code></p>
 </li>
 </ol>
 </div>
-</li>
-</ul>
+<div class="paragraph">
+<p>Die Reihenfolge der eigentlichen Daten (inkl. AV und PLZ/Ortschaft) spielt keine Rolle mehr.</p>
 </div>
 </div>
 <div class="sect2">
@@ -804,27 +810,30 @@ code {
 <p>Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:</p>
 </div>
 <div class="paragraph">
-<p>Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B <em>arp_npl_oereb</em>), anschliessend nach INTERLIS exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: <em>stage</em> und <em>live</em>. Zuerst werden die Daten in das <em>stage</em>-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer aus dem <em>stage</em>-Schema sind als geschützte Layer im Web GIS Client freigeschaltet, wo die Daten kontrolliert werden können.</p>
+<p>Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B <em>arp_nutzungsplanung_oereb_v1</em>), anschliessend nach INTERLIS exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: <em>stage</em> und <em>live</em>. Zuerst werden die Daten in das <em>stage</em>-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer aus dem <em>stage</em>-Schema sind als geschützte Layer im Web GIS Client freigeschaltet, wo die Daten kontrolliert werden können.</p>
 </div>
 <div class="paragraph">
 <p>Das Starten eines solchen Jobs wird in <a href="https://gretl.so.ch"><em>GRETL-Jenkins</em></a> gemacht. Nur berechtigte Personen können den Job starten. Nach erfolgter visueller Validierung muss die berechtigte Person den Import in das <em>live</em>-Schema freigeben.</p>
 </div>
 <div class="paragraph">
-<p>Sämtliche Aktionen in <em>GRETL-Jenkins</em> werden transparent geloggt und sind nachvollziehbar. Die erzeugten Daten im Rahmenmodell werden archiviert.</p>
+<p>Sämtliche Aktionen in <em>GRETL-Jenkins</em> werden transparent geloggt und sind nachvollziehbar. Die erzeugten Daten im Rahmenmodell werden archiviert und zusätzlich in S3 gespeichert.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_nachführung_der_öreb_daten"><a class="anchor" href="#_nachführung_der_öreb_daten"></a><a class="link" href="#_nachführung_der_öreb_daten">4.3. Nachführung der ÖREB-Daten</a></h3>
 <div class="sect3">
-<h4 id="_bundesdaten_codelisten_bundesgesetze_und_verordnungen"><a class="anchor" href="#_bundesdaten_codelisten_bundesgesetze_und_verordnungen"></a><a class="link" href="#_bundesdaten_codelisten_bundesgesetze_und_verordnungen">4.3.1. Bundesdaten, Codelisten, Bundesgesetze und -verordnungen</a></h4>
+<h4 id="_bundesdaten_bundeskonfiguration_bundesgesetze_und_verordnungen"><a class="anchor" href="#_bundesdaten_bundeskonfiguration_bundesgesetze_und_verordnungen"></a><a class="link" href="#_bundesdaten_bundeskonfiguration_bundesgesetze_und_verordnungen">4.3.1. Bundesdaten, Bundeskonfiguration, Bundesgesetze und -verordnungen</a></h4>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundesdaten"><code>oereb_bundesdaten</code></a>: ÖREB-Daten im Transfermodell. Werden jede Nacht importiert.<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundesgesetze"><code>oereb_bundesgesetze</code></a>: Gesetzlichen Grundlagen (Gesetz und Verordnungen) des Bundes. Werden manuell, «on demand» importiert.<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_bundescodelisten"><code>oereb_bundescodelisten</code></a>: Codelisten des Bundes. Werden manuell, «on demand» importiert.</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_bundesdaten"><code>oerebv2_bundesdaten</code></a>: ÖREB-Daten im Transfermodell. Werden jede Nacht importiert.<br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_bundesgesetze"><code>oerebv2_bundesgesetze</code></a>: Gesetzlichen Grundlagen (Gesetz und Verordnungen) des Bundes. Werden manuell, «on demand» importiert.<br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_bundeskonfiguration"><code>oerebv2_bundeskonfiguration</code></a>: Themen, Logos und Texte des Bundes. Werden manuell, «on demand» importiert.</p>
 </div>
 <div class="paragraph">
-<p>Bundesdaten werden durch das zuständige Bundesamt nachgeführt und auf der Webseite <a href="https://data.geo.admin.ch/">https://data.geo.admin.ch/</a> im entsprechenden Unterordner bereitgestellt. Analog werden die Codelisten und die Bundesgesetze und -verordnungen behandelt (<a href="http://models.geo.admin.ch/V_D/OeREB/">http://models.geo.admin.ch/V_D/OeREB/</a>).</p>
+<p>Bundesdaten werden durch das zuständige Bundesamt nachgeführt und auf der Webseite <a href="https://data.geo.admin.ch/">https://data.geo.admin.ch/</a> im entsprechenden Unterordner bereitgestellt. Aus nicht nachvollziehbaren Gründen sind die ÖREB-Unterordner jedoch nicht direkt aufgelistet, sondern die Unterordner-Url muss mühsam selber zusammengestöpselt werden (aus Basis-Url und Themennamen).</p>
+</div>
+<div class="paragraph">
+<p>Die Bundeskonfiguration und die Bundesgesetze und -verordnungen sind auf der INTERLIS-Modell- und Datenablage zu finden (<a href="http://models.geo.admin.ch/V_D/OeREB/">http://models.geo.admin.ch/V_D/OeREB/</a>).</p>
 </div>
 </div>
 <div class="sect3">
@@ -833,90 +842,91 @@ code {
 <h5 id="_nutzungsplanung"><a class="anchor" href="#_nutzungsplanung"></a><a class="link" href="#_nutzungsplanung">Nutzungsplanung</a></h5>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_nutzungsplanung"><code>oereb_nutzungsplanung</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_nutzungsplanung"><code>oerebv2_nutzungsplanung</code></a>: Kommunale Nutzungsplanung. Job wird manuell, «on demand» ausgelöst.
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_nutzungsplanung_kanton"><code>oerebv2_nutzungsplanung_kanton</code></a>: Kantonale Nutzungsplanung. Job wird manuell, «on demand» ausgelöst.</p>
 </div>
 <div class="paragraph">
-<p>Die Nutzungsplanung (inkl. Waldabstandslinien und Lärmempfindlichkeitsstufen in Nutzungszonen) wird durch externe Planungs- und Ingenieurbüros in einem kantonalen Datenmodell erfasst und an den Kanton geliefert. Das Amt für Raumplanung verifiziert diese und das Amt für Geoinformation importiert diese in die Edit-DB.</p>
+<p>Die Daten der Nutzungsplanung (inkl. Waldabstandslinien und Lärmempfindlichkeitsstufen in Nutzungszonen) werden durch das AGI in den Datensatz in der Edit-DB eingepflegt.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_waldgrenzen"><a class="anchor" href="#_waldgrenzen"></a><a class="link" href="#_waldgrenzen">Waldgrenzen</a></h5>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_waldgrenzen"><code>oereb_waldgrenzen</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_waldgrenzen"><code>oerebv2_waldgrenzen</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
 </div>
 <div class="paragraph">
-<p>Die Waldgrenzen werden in einem kantonalen Datenmodell durch das Amt für Jagd, Wald und Fischerei (AWJF) in der Edit-DB nachgeführt.</p>
+<p>Die Waldgrenzen werden in einem kantonalen Datenmodell durch das Amt für Geoinformation (AGI) in der Edit-DB nachgeführt.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_kataster_der_belasteten_standorte"><a class="anchor" href="#_kataster_der_belasteten_standorte"></a><a class="link" href="#_kataster_der_belasteten_standorte">Kataster der belasteten Standorte</a></h5>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_belastete_standorte"><code>oereb_belastete_standorte</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_belastete_standorte"><code>oerebv2_belastete_standorte</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
 </div>
 <div class="paragraph">
 <p>Für die Nachführung des Katasters der belasteten Standorte setzt das Amt für Umwelt (AfU) die Software <em>altlast4web</em> ein. Die Software läuft ausserhalb der GDI.</p>
 </div>
 <div class="paragraph">
-<p>Die Daten des Kataster der belasteten Standorte werden durch <em>altlast4web</em> als HTTP-Ressource bereitgestellt. Ein Datenumbau ist somit nicht notwendig. Der GRETL-Job muss die Daten nur validieren und in das <em>stage</em>- resp. <em>live</em>-Schema importieren. Eine visuelle Validierung durch die zuständige Stelle im <em>stage</em>-Schema findet jedoch ebenfalls statt.</p>
+<p>Die Daten des Kataster der belasteten Standorte werden durch <em>altlast4web</em> als HTTP-Ressource (nur innerhalb des Kantonsnetzes verfügbar) bereitgestellt. Ein Datenumbau ist somit nicht notwendig. Der GRETL-Job muss die Daten nur validieren und in das <em>stage</em>- resp. <em>live</em>-Schema importieren. Eine visuelle Validierung durch die zuständige Stelle im <em>stage</em>-Schema findet jedoch ebenfalls statt.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_planerischer_gewässerschutz"><a class="anchor" href="#_planerischer_gewässerschutz"></a><a class="link" href="#_planerischer_gewässerschutz">Planerischer Gewässerschutz</a></h5>
 <div class="paragraph">
-<p>GRETL-Jobs:<br></p>
+<p>GRETL-Jobs:<br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_grundwasserschutz"><code>oerebv2_grundwasserschutz</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_grundwasserschutz"><code>oereb_grundwasserschutz</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
-</div>
-<div class="paragraph">
-<p>Der planerische Gewässerschutz wird im MGDM durch das Amt für Umwelt in der Edit-DB nachgeführt.</p>
+<p>Der planerische Gewässerschutz wird im MGDM durch das Amt für Geoinformation (AGI) in der Edit-DB nachgeführt.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_schützenswerte_objekte_einzelschutzverfügungen"><a class="anchor" href="#_schützenswerte_objekte_einzelschutzverfügungen"></a><a class="link" href="#_schützenswerte_objekte_einzelschutzverfügungen">Schützenswerte Objekte / Einzelschutzverfügungen</a></h5>
+<h5 id="_schützenswerte_objekte_denkmal_geotope_naturreservate"><a class="anchor" href="#_schützenswerte_objekte_denkmal_geotope_naturreservate"></a><a class="link" href="#_schützenswerte_objekte_denkmal_geotope_naturreservate">Schützenswerte Objekte (Denkmal) / Geotope / Naturreservate</a></h5>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_einzelschutz_denkmal"><code>oereb_einzelschutz_denkmal</code></a>: Job wird manuell, «on demand» ausgelöst. (tdb) <br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_einzelschutz_geotop"><code>oereb_einzelschutz_geotop</code></a>: Job wird manuell, «on demand» ausgelöst. (tdb)</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_einzelschutz_denkmal"><code>oerebv2_einzelschutz_denkmal</code></a>: Job wird manuell, «on demand» ausgelöst. <br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_einzelschutz_geotop"><code>oerebv2_einzelschutz_geotop</code></a>: Job wird manuell, «on demand» ausgelöst.
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_einzelschutz_naturreservat"><code>oerebv2_einzelschutz_naturreservat</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
 </div>
 <div class="paragraph">
-<p>Diese ÖREB-Kataster-relevanten Daten werden durch das Amt für Archäologie und Denkmalschutz in der Fachanwendung <em>ArtPlus</em> ausserhalb der kantonalen GDI nachgeführt. Eine Teilmenge der Daten wird täglich in die Edit-DB importiert.</p>
+<p>Denkmal: Diese ÖREB-Kataster-relevanten Daten werden durch das Amt für Archäologie und Denkmalschutz in der Fachanwendung <em>ArtPlus</em> ausserhalb der kantonalen GDI nachgeführt. Eine Teilmenge der Daten wird täglich in die Edit-DB importiert.</p>
 </div>
 <div class="paragraph">
 <p>Geotope werden in einem kantonalen Datenmodell durch das Amt für Umwelt (AFU) in der Edit-DB nachgeführt.</p>
 </div>
+<div class="paragraph">
+<p>Naturreservate werden in einem kantonalen Modell durch das Amt für Geoinformation (AGI) in der Edit-DB nachgeführt.</p>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nachführung_der_kantonalen_gesetze"><a class="anchor" href="#_nachführung_der_kantonalen_gesetze"></a><a class="link" href="#_nachführung_der_kantonalen_gesetze">4.4. Nachführung der kantonalen Gesetze</a></h3>
+<h3 id="_nachführung_der_kantonalen_konfiguration"><a class="anchor" href="#_nachführung_der_kantonalen_konfiguration"></a><a class="link" href="#_nachführung_der_kantonalen_konfiguration">4.4. Nachführung der kantonalen Konfiguration</a></h3>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_kantonale_gesetze"><code>oereb_kantonale_gesetze</code></a>: Job wird manuell, «on demand» ausgelöst.</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_zustaendigestellen"><code>oerebv2_konfiguration_zustaendigestellen</code></a><br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_gesetze"><code>oerebv2_konfiguration_gesetze</code></a><br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_themen"><code>oerebv2_konfiguration_themen</code></a><br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_logo"><code>oerebv2_konfiguration_logo</code></a><br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_text"><code>oerebv2_konfiguration_text</code></a><br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_verfuegbarkeit"><code>oerebv2_konfiguration_verfuegbarkeit</code></a><br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_konfiguration_grundbuchkreis"><code>oerebv2_konfiguration_grundbuchkreis</code></a></p>
 </div>
 <div class="paragraph">
-<p>Das AGI führt die kantonalen Gesetze im Auftrag der Staatskanzlei nach. Da es sich um wenige Gesetze und wenige Mutationen handelt, geschieht die Nachführung direkt in der INTERLIS-Transferdatei im Rahmenmodell. Die Daten werden anschliessend wieder in den dafür vorgesehen Ordner im Filesystem kopiert und die Datei ist als HTTP-Ressource greifbar: <a href="https://geo.so.ch/geodata/ch.so.sk.gesetze.oereb/">https://geo.so.ch/geodata/ch.so.sk.gesetze.oereb/</a>.</p>
+<p>Bis auf <code>oerebv2_konfiguration_verfuegbarkeit</code> sind sätmliche Konfigurations-Jobs «on demand»-Jobs. Die Verfügbarkeit muss täglich ausgeführt werden, damit das Datum des Standes der amtlichen Vermessung aktualisiert wird.</p>
+</div>
+<div class="paragraph">
+<p>Die Daten werden durch das Amt für Geoinformation (AGI) nachgeführt.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_nachführung_öreb_annexmodell"><a class="anchor" href="#_nachführung_öreb_annexmodell"></a><a class="link" href="#_nachführung_öreb_annexmodell">4.5. Nachführung ÖREB-Annexmodell</a></h3>
+<h3 id="_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"><a class="anchor" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"></a><a class="link" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.5. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></h3>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_annex"><code>oereb_annex</code></a>: Job wird jede Nacht automatisch ausgeführt.</p>
-</div>
-<div class="paragraph">
-<p>Die Daten werden durch das AGI in der Edit-DB nachgeführt. Das Datum der Daten der amtlichen Vermessung wird automatisch jede Nacht mit dem GRETL-Job aktualisiert.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"><a class="anchor" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis"></a><a class="link" href="#_nachführung_daten_der_amtlichen_vermessung_inkl_grundbuchkreise_und_amtliches_ortschaftsverzeichnis">4.6. Nachführung Daten der amtlichen Vermessung (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</a></h3>
-<div class="paragraph">
-<p>GRETL-Jobs:<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_av"><code>oereb_av</code></a>: Job wird jede Nacht automatisch ausgeführt.<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_plzo"><code>oereb_plzo</code></a>: Job wird jede Nacht automatisch ausgeführt.<br>
-<a href="https://github.com/sogis/oereb-gretljobs/tree/master/oereb_gbkreise"><code>oereb_gbkreise</code></a>: Job wird jede Nacht automatisch ausgeführt.</p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oereb_av"><code>oereb_av</code></a>: Job wird jede Nacht automatisch ausgeführt.<br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oereb_plzo"><code>oereb_plzo</code></a>: Job wird jede Nacht automatisch ausgeführt.<br></p>
 </div>
 <div class="paragraph">
 <p>Die Daten werden mit einem GRETL-Job aus der Edit-DB direkt («Db2Db-Task») in die ÖREB-Datenbank kopiert. Die AV-Daten werden von den zuständigen Nachführungsgeometern mindestens einmal wöchentlich geliefert und anschliessend automatisch in die Edit-DB importiert.</p>
@@ -944,8 +954,8 @@ code {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.0.7<br>
-Last updated 2022-05-26 12:51:14 UTC
+Version 2.0.8<br>
+Last updated 2022-05-27 13:15:20 UTC
 </div>
 </div>
 </body>

@@ -458,7 +458,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Bestehende GDI-Komponenten sind blau, ÖREB-Komponenten lachsfarben. Der Web GIS Client und die Datenablage müssten korrekterweise beide Farben aufweisen.</p>
 </div>
 <div class="paragraph">
-<p>Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten werden direkt in die ÖREB-DB importiert, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, &#8230;&#8203;) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: <em>live</em> und <em>stage</em>. Das <em>stage</em>-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das <em>live</em>-Schema importiert.</p>
+<p>Vorhandene kantonale Daten werden in der Edit-DB in einem dafür vorgesehenen Schema (<code>&lt;amt&gt;_&lt;thema&gt;_oerebv2</code>) in eine dem Rahmenmodell (Teilmodell Transferstruktur) äquivalente Struktur gebracht und anschliessend exportiert und in die ÖREB-DB importiert. Daten aus Fachanwendungen (Kataster der belasteten Standorten) und Bundesdaten werden direkt in die ÖREB-DB importiert, da sie bereits im Rahmenmodell bereitgestellt werden. Ein Datenumbau entfällt. Sämtliche Daten (inkl. amtliche Vermessung, Annexdaten, &#8230;&#8203;) werden in das gleiche Schema importiert. Es werden zwei identische Schemen erstellt: <em>live</em> und <em>stage</em>. Das <em>stage</em>-Schema dient der Validierung der Daten durch die dafür zuständigen Stellen. Ist diese erfolgreich, werden die Daten in das <em>live</em>-Schema importiert.</p>
 </div>
 </div>
 <div class="sect2">
@@ -475,16 +475,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>ÖREB-WMS</p>
 </li>
 <li>
-<p>ÖREB-Webservice</p>
+<p>ÖREB-Webservice (inkl. pdf4oereb-Bibliothek)</p>
 </li>
 <li>
-<p>ÖREB-Iconizer (integriert in GRETL)</p>
+<p>ÖREB-Iconizer</p>
 </li>
 <li>
 <p>ÖREB GRETL-Jobs</p>
-</li>
-<li>
-<p>ÖREB-Annexmodell</p>
 </li>
 <li>
 <p>ÖREB Web GIS Client (Bestandteil des Web GIS Clients)</p>
@@ -504,26 +501,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h4 id="oereb_datenbank">ÖREB-Datenbank</h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis/oereb-db">https://github.com/sogis/oereb-db</a></p>
+<a href="https://github.com/sogis-oereb/oereb-db">https://github.com/sogis-oereb/oereb-db</a></p>
 </div>
 <div class="paragraph">
 <p>Docker-Image:<br>
 <a href="https://hub.docker.com/r/sogis/oereb-db">https://hub.docker.com/r/sogis/oereb-db</a></p>
 </div>
 <div class="paragraph">
-<p>In der ÖREB-Datenbank werden in zwei Schemen (<em>live</em> und <em>stage</em>) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), das amtliche Ortschaftsverzeichnis und die Annexdaten (Modell <code>OeREB_ExtractAnnex_V1_0</code>).</p>
+<p>In der ÖREB-Datenbank werden in zwei Schemen (<em>live</em> und <em>stage</em>) jeweils sämtliche für den Betrieb des ÖREB-Katasters notwendigen Daten gespeichert. Dazu gehören die eigentlichen ÖREB-Daten (inkl. kantonaler Gesetze und Verordnungen und Bundesgesetze und -verordnungen) sowie die amtliche Vermessung (im Bundesmodell), das amtliche Ortschaftsverzeichnis und die Konfigurationsdaten.</p>
 </div>
 <div class="paragraph">
-<p>Die Datenstruktur entspricht einem mit <em>ili2pg</em> angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Die Dokumente pro Geometrieobjekt werden als JSON-Array gespeichert. Die  «flachgewalzten» Tabellen müssen zusätzlich 1:1 in eine View überführt werden und das JSON-Array zu einem Text gecasted werden, damit die eingesetzte QGIS-Server-Version damit umgehen kann.</p>
+<p>Die Datenstruktur entspricht einem mit <em>ili2pg</em> angelegten Schema und Tabellen und sind entsprechend normalisiert. Für die Bereitstellung via WMS werden zusätzlich denormalisierte, «flachgewalzte» Tabellen eingesetzt. Dazu wurde ein sehr einfache Datenmodell (<code>SO_AGI_OeREB_WMS_20220222</code>) geschrieben. Die Dokumente, welche in der Tabelle als JSON-Array gespeichert werden, wurden nicht als Strukturen ausmodelliert, da dies in der Datebank zu JSON-Spalten führen würde, die wiederum mittels View zu Text gecastet werden müssen, weil QGIS-Server nicht damit umgehen kann. Somit wird das JSON-Array als einfacher Text modelliert und gespeichert.</p>
 </div>
 <div class="paragraph">
 <p>Das <em>stage</em>-Schema dient der Validierung der Daten durch die zuständigen Stellen.</p>
 </div>
 <div class="paragraph">
-<p>Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem <a href="https://github.com/sogis/oereb-db/blob/master/create_schema_sql_scripts.sh">Bash-Skript</a> durchgeführt.</p>
+<p>Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem einem <a href="https://github.com/sogis-oereb/oereb-db/blob/main/create_schema_sql.java">jBang-Java-Skript</a> durchgeführt.</p>
 </div>
 <div class="paragraph">
-<p>Für Test- und Entwicklungszwecken wird mit Travis ein <a href="https://github.com/sogis/oereb-db/blob/master/Dockerfile">Docker-Image </a>der ÖREB-Datenbank erzeugt.</p>
+<p>Für Test- und Entwicklungszwecken wird mit Github Action ein <a href="https://github.com/sogis/oereb-db/blob/master/Dockerfile">Docker-Image</a> der ÖREB-Datenbank erzeugt.</p>
 </div>
 <div class="paragraph">
 <p>Im produktiven Betrieb wird nicht das Docker-Image verwendet, sondern die DDL-Queries werden mit <em>Ansible</em> auf dem bereits in der GDI vorhandenen Datenbankserver und -cluster deployed. Es ist die einzige Softwarekomponente, die nicht mittels <em>Docker</em> betrieben wird.</p>
@@ -536,14 +533,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h4 id="_öreb_wms">ÖREB-WMS</h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis/oereb-wms">https://github.com/sogis/oereb-wms</a></p>
+<a href="https://github.com/sogis-oereb/oereb-wms">https://github.com/sogis-oereb/oereb-wms</a></p>
 </div>
 <div class="paragraph">
 <p>Docker-Image:<br>
 <a href="https://hub.docker.com/r/sogis/oereb-wms">https://hub.docker.com/r/sogis/oereb-wms</a></p>
 </div>
 <div class="paragraph">
-<p>Der ÖREB-WMS dient dazu die denormalisierten Views (siehe <a href="#oereb_datenbank">ÖREB-Datenbank</a>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direkt verwendet.</p>
+<p>Der ÖREB-WMS dient dazu die «flachgewalzten» Tabellen (siehe <a href="#oereb_datenbank">ÖREB-Datenbank</a>) aus der ÖREB-Datenbank als WMS-Layer zu publizieren. Es werden nur die kantonalen Daten publiziert. Für die Bundes-ÖREB-Daten wird der WMS-Dienst des Bundes (GetMap-Request gespeichert in den Daten) direkt verwendet.</p>
 </div>
 <div class="paragraph">
 <p>Der WMS-Server exponiert zwei Endpunkte:</p>
@@ -559,19 +556,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 <div class="paragraph">
-<p>Die Trennung entstand zum Zeitpunkt, wo noch keine Daten (in der Transferstruktur) vorlagen und ist nicht zwinged notwendig. So können aber einfacher Änderungen an der Darstellung durchgespielt werden.</p>
-</div>
-<div class="paragraph">
-<p>Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das <a href="https://github.com/sogis/oereb-wms/blob/master/Dockerfile.qgisserver">Docker-Image</a> gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den <code>search_path</code> (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter <code>/etc/postgresql-common</code> in den Docker-Container gemountet.</p>
+<p>Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das <a href="https://github.com/sogis-oereb/oereb-wms/blob/master/Dockerfile.qgisserver">Docker-Image</a> gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den <code>search_path</code> (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter <code>/etc/postgresql-common</code> in den Docker-Container gemountet.</p>
 </div>
 <div class="paragraph">
 <p>Für den produktiven Einsatz wird somit nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.</p>
 </div>
 <div class="paragraph">
-<p>Nach jedem Commit wird auf Travis das Image neu gebuildet und innerhalb von 15 Minuten auf der <a href="https://ocp-console.so.ch/console/project/agi-oereb-test/overview">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
+<p>Nach jedem Commit wird mit einer Github Action das Image neu gebuildet und innerhalb von 15 Minuten auf der <a href="https://console.apps.ocp.so.ch/k8s/cluster/projects/agi-oerebv2-test">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
 </div>
 <div class="paragraph">
-<p>Es wird QGIS 3.4 LTR eingesetzt.</p>
+<p>Es wird QGIS 3.16 LTR eingesetzt. Das Dockerimage für die ARM64-Architektur verwendet QGIS 3.10 LTR aus dem offiziellen Ubuntu-Repository.</p>
 </div>
 </div>
 <div class="sect3">
@@ -589,46 +583,39 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>Der ÖREB-Webservice ist die M2M-Schnittstelle des ÖREB-Katasters und dient dem Bezug des ÖREB-Katasterauszuges (XML und PDF) als Downloaddienst. Das Bundesamt für Landestopografie hat dazu zwei Weisungen (<a href="https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-XML-Aufruf_de.pdf.html">«ÖREB-Webservice (Aufruf eines Auszugs)»</a> und <a href="https://www.cadastre.ch/de/manual-oereb/publication/instruction.detail.document.html/cadastre-internet/de/documents/oereb-weisungen/OEREB-Data-Extract_de.pdf.html">«ÖREB-Kataster - DATA-Extract»</a>) erlassen.</p>
 </div>
 <div class="paragraph">
-<p>Die Umwandlung des XML nach PDF übernimmt die im Webservice integrierte Bibliothek <a href="https://github.com/openoereb/pdf4oereb"><em>pdf4oereb</em></a>.</p>
+<p>Die Umwandlung des XML nach PDF übernimmt die im Webservice integrierte Bibliothek <a href="https://github.com/sogis/pdf4oereb"><em>pdf4oereb</em></a>.</p>
 </div>
 <div class="paragraph">
-<p>Der ÖREB Web Service des Kantons Solothurn unterstützt nur das Ausgabeformat XML und den reduzierten PDF-Auszug.</p>
+<p>Der ÖREB Web Service des Kantons Solothurn unterstützt nur das Ausgabeformat XML.</p>
 </div>
 <div class="paragraph">
 <p>Alle benötigten Daten müssen in einem einzigen Schema in einer PostgreSQL-Datenbank vorliegen. Die Konfiguration (inkl. der Datenbank-Verbindungsparameter) wird mittels ENV-Variablen gesteuert.</p>
 </div>
 <div class="paragraph">
-<p>Jeder Commit im Code-Repository stösst einen Build-Prozess des Docker-Image-Repositories an. Das Docker-Image wird anschliessend automatisch in der <a href="https://ocp-console.so.ch/console/project/agi-oereb-test/browse/dc/oereb-web-service?tab=history">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
+<p>Jeder Commit im Code-Repository stösst einen Build-Prozess des Docker-Image-Repositories an. Das Docker-Image wird anschliessend automatisch in der <a href="https://console.apps.ocp.so.ch/k8s/cluster/projects/agi-oerebv2-test">Test- und Integrationsumgebung</a> von <em>OpenShift</em> deployed.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_öreb_iconizer">ÖREB-Iconizer</h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/openoereb/oereb-iconizer">https://github.com/openoereb/oereb-iconizer</a></p>
+<a href="https://github.com/sogis/oereb-iconizer">https://github.com/sogis/oereb-iconizer</a></p>
 </div>
 <div class="paragraph">
-<p>Der <em>ÖREB-Iconizer</em> ist eine Java-Bibliothek, die zum Herstellen der einzelnen ÖREB-Symbole (als Bestandteil der Transferstruktur), verwendet wird. Weil der Symbol-Herstellungsprozess während des Datenumbaues «kantonale Daten - ÖREB-Rahmenmodell» geschehen muss und für diesen Schritt <a href="https://github.com/sogis/gretl"><em>GRETL</em></a> eingesetzt wird, wurde auf Basis der Bibliothek ein <a href="https://github.com/sogis/gretl/blob/master/docs/user/index.md#oerebiconizerqgis3">GRETL-Customtask</a> geschrieben.</p>
+<p>Der <em>ÖREB-Iconizer</em> ist ein Java-Programm, das zum Herstellen der einzelnen ÖREB-Symbole (als Bestandteil der Transferstruktur), verwendet wird. Die Symbole werden in einem manuellen Prozess hergestellt und als INTERLIS-Transferdatei zu den jeweiligen ÖREB-Gretl-Jobs kopiert. Während des Datenumbaus «kantonale Daten - ÖREB-Rahmenmodell» wird diese INTERLIS-Transferdatei importiert und das Symbol wird dem jeweiligen Symbol-Record des Rahmenmodells in der Datenbanktabelle zugewiesen. Da die Symbole nicht häufig ändern, ist dieser manuelle Herstellungsprozess der Symbole vertretbar.</p>
+</div>
+<div class="paragraph">
+<p>Die Befehle für die Herstellung der INTERLIS-Transferdatei sind im Github-Repository beschrieben.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="oereb-gretl-jobs">ÖREB GRETL-Jobs</h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis/oereb-gretljobs">https://github.com/sogis/oereb-gretljobs</a></p>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs">https://github.com/sogis-oereb/oereb-gretljobs</a></p>
 </div>
 <div class="paragraph">
-<p>Die ÖREB GRETL-Jobs werden eingesetzt für den Datenfluss. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_öreb_annexmodell">ÖREB-Annexmodell</h4>
-<div class="paragraph">
-<p>INTERLIS-Modellablage:<br>
-<a href="https://geo.so.ch/models/AGI/OeREB_ExtractAnnex_V1_0.ili">https://geo.so.ch/models/AGI/OeREB_ExtractAnnex_V1_0.ili</a></p>
-</div>
-<div class="paragraph">
-<p>Im <em>ÖREB-Annexmodell</em> werden Informationen verwaltet, die im Rahmenmodell (Transferstruktur) fehlen, aber für den Auszug notwendig sind: z.B. Opazität von WMS-Layer, Logos etc. Zudem dient es zum Freischalten einzelner Gemeinden und Themen (z.B. Nutzungsplanung).</p>
+<p>Die ÖREB-GRETL-Jobs werden für den Datenfluss eingesetzt. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.</p>
 </div>
 </div>
 <div class="sect3">
@@ -664,7 +651,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="ulist">
 <ul>
 <li>
-<p>Test: Zum Testen neuer Funktionen und Bugfixes. Jeder Commit in einer Software-Komponente stösst die Build-Pipeline an (Travis). Ist der Build und das Testing erfolgreich, wird die Komponente nach maximal 15 Minuten neu deployed und steht dem Benutzer zur Verfügung.</p>
+<p>Test: Zum Testen neuer Funktionen und Bugfixes. Jeder Commit in einer Software-Komponente stösst die Build-Pipeline an (Github Action). Ist der Build und das Testing erfolgreich, wird die Komponente nach maximal 15 Minuten neu deployed und steht dem Benutzer zur Verfügung.</p>
 </li>
 <li>
 <p>Integration: Die Integrationsumgebung ist sehr nahe der Produktionsumgebung und dient vor allem für Abnahmetests und Systemintegrationstests. Manuelles Deployment.</p>
@@ -680,8 +667,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.0.7<br>
-Last updated 2022-05-26 12:51:14 UTC
+Version 2.0.8<br>
+Last updated 2022-05-27 13:15:20 UTC
 </div>
 </div>
 </body>
