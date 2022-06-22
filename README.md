@@ -1,10 +1,12 @@
-[![Build Status](https://travis-ci.org/sogis/oereb-handbuch.svg?branch=master)](https://travis-ci.org/sogis/oereb-handbuch)
+[![oereb-handbuch](https://github.com/sogis/oereb-handbuch/actions/workflows/main.yml/badge.svg)](https://github.com/sogis/oereb-handbuch/actions/workflows/main.yml)
 # oereb-handbuch
 Handbuch OEREB-Kataster Kanton Solothurn
 
 ## System Requirements
 
-* java
+* Java
+* Gradle
+* AsciidoctorJ / AsciidoctorPDF
 
 ## General usage
 

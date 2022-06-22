@@ -15,12 +15,15 @@ repositories {
 asciidoctor {
     sourceDir  file('src/docs/asciidoc')
     outputDir  file('build/docs')
+
 }
 
 asciidoctorj {  // or asciidoctor.asciidoctorj
     attributes \
         revnumber : project.version,
-        imagesdir : "images"
+        imagesdir : "images",
+        stylesheet : file('./sogis.css')
+
    options doctype: 'book', ruby: 'erubis'
 }
 
@@ -43,7 +46,24 @@ asciidoctorPdf {
     }
 }
 
-task downloadFonts (type: Download) {
+task downloadCss(type: Download) {
+    src([
+        'https://raw.githubusercontent.com/sogis/sogis-docs-asciidoctor-themes/master/sogis-css/sogis.css'
+    ])
+    // Falls nur eine Datei heruntergeladen wird, wird kein Verzeichnis erstellt, sondern die 
+    // Datei direkt gespeichert.
+    dest file("./sogis.css")
+}
+
+task deleteCss(type: Delete) {
+    delete './sogis.css'
+}
+
+asciidoctor.dependsOn downloadCss
+asciidoctor.finalizedBy deleteCss
+
+// Fonts müssen vorhanden sein und können nicht mit der Theme mitgeliefert werden.
+task downloadFonts(type: Download) {
     src([
         'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/sogis-frutiger/fonts/frutiger-normal.ttf',
         'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/sogis-frutiger/fonts/frutiger-bold.ttf',

@@ -13,7 +13,6 @@
 :sectanchors:
 :revdate: {docdate}
 :figure-caption: Abbildung
-:stylesheet: src/docs/asciidoc/handbuch.css
 
 include::src/docs/asciidoc/chapter/vorwort.adoc[]
 
