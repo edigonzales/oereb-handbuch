@@ -274,7 +274,7 @@ code {
 <p>Bundesgesetze und -verordnungen, sowie kantonale Gesetze und Verordnungen</p>
 </li>
 <li>
-<p>ÖREB-Annexmodell</p>
+<p>ÖREB-Rahmenmodell Teilmodell «Konfiguration»</p>
 </li>
 <li>
 <p>AV-Daten (inkl. Grundbuchkreise und amtliches Ortschaftsverzeichnis)</p>
@@ -404,6 +404,16 @@ code {
 </div>
 </div>
 <div class="sect4">
+<h5 id="_gewässerraum">Gewässerraum</h5>
+<div class="paragraph">
+<p>GRETL-Jobs:<br>
+<a href="https://github.com/sogis-oereb/oereb-gretljobs/tree/main/oerebv2_gewaesserraum"><code>oerebv2_gewaesserraum</code></a>: Gewässerraum. Job wird manuell, «on demand» ausgelöst.</p>
+</div>
+<div class="paragraph">
+<p>Die Daten des Gewässerraums liegen nicht in jeder Gemeinde mit Nutzungsplanung rechtsgültig vor. Aus diesem Grund muss das Thema bei der jeweiligen Gemeinde zuerst in der Edit-DB im Schema <code>agi_konfiguration_oerebv2</code> freigeschaltet werden.</p>
+</div>
+</div>
+<div class="sect4">
 <h5 id="_waldgrenzen">Waldgrenzen</h5>
 <div class="paragraph">
 <p>GRETL-Jobs:<br>
@@ -472,7 +482,7 @@ code {
 <p>Bis auf <code>oerebv2_konfiguration_verfuegbarkeit</code> sind sätmliche Konfigurations-Jobs «on demand»-Jobs. Die Verfügbarkeit muss täglich ausgeführt werden, damit das Datum des Standes der amtlichen Vermessung aktualisiert wird.</p>
 </div>
 <div class="paragraph">
-<p>Die Daten werden durch das Amt für Geoinformation (AGI) nachgeführt.</p>
+<p>Die Daten werden durch das Amt für Geoinformation (AGI) nachgeführt. Siehe dazu auch eine ausführliche Anleitung: <code>H:\BJSVW\Agi\ÖREB-Kataster\Nachführung\Konfiguration_Annex\Anleitung ÖREB-Themen freischalten_Version2.0.docx</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -491,8 +501,8 @@ code {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.0.9<br>
-Last updated 2022-06-22 09:49:04 UTC
+Version 2.0.10<br>
+Last updated 2022-07-04 11:35:35 UTC
 </div>
 </div>
 </body>
