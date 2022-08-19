@@ -32,7 +32,7 @@ jobs:
         run: ./gradlew clean asciidoctor asciidoctorPdf
         env:
           BUILD_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
-          JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
+          JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy html output 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
