@@ -45,7 +45,7 @@ jobs:
       - name: Deploy pdf output 🚀
         run: |
           ls -la build/docs/asciidocPdf/
-          ./gradlew jreleaserRelease -i -d
+          ./gradlew jreleaserRelease -s
         env:
           BUILD_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
           JRELEASER_GITHUB_TOKEN: ${{ secrets.JRELEASER_GITHUB_TOKEN }}
