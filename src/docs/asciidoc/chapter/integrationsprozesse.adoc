@@ -66,6 +66,12 @@ https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_nutzungsplanu
 
 Die Daten der Nutzungsplanung (inkl. Waldabstandslinien und Lärmempfindlichkeitsstufen in Nutzungszonen) werden durch das AGI in den Datensatz in der Edit-DB eingepflegt.
 
+===== Planungszonen
+GRETL-Jobs: +
+https://github.com/sogis-oereb/oereb-gretljobs/tree/main/oerebv2_planungszonen[`oerebv2_planungszonen`]: Planungszonen. Job wird manuell, «on demand» ausgelöst.
+
+Die Daten werden in der Nutzungsplanung geführt und werden durch das AGI in den Datensatz in der Edit-DB eingepflegt.
+
 ===== Gewässerraum
 GRETL-Jobs: +
 https://github.com/sogis-oereb/oereb-gretljobs/tree/main/oerebv2_gewaesserraum[`oerebv2_gewaesserraum`]: Gewässerraum. Job wird manuell, «on demand» ausgelöst.
@@ -77,6 +83,12 @@ GRETL-Jobs: +
 https://github.com/sogis-oereb/oereb-gretljobs/tree/master/oerebv2_waldgrenzen[`oerebv2_waldgrenzen`]: Job wird manuell, «on demand» ausgelöst.
 
 Die Waldgrenzen werden in einem kantonalen Datenmodell durch das Amt für Geoinformation (AGI) in der Edit-DB nachgeführt.
+
+===== Waldreservate
+GRETL-Jobs: + 
+https://github.com/sogis-oereb/oereb-gretljobs/tree/main/oerebv2_waldreservate[`oerebv2_waldreservate`]: Job wird manuell, «on demand» ausgelöst.
+
+Die Waldreservate werden als Übergangslösung in einem kantonalen Datenmodell durch das Amt für Geoinformation (AGI) in der Edit-DB nachgeführt. Später werden sie im Waldportal erfasst.
 
 ===== Kataster der belasteten Standorte
 GRETL-Jobs: + 
