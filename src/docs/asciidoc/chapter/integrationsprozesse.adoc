@@ -41,7 +41,7 @@ Die Reihenfolge der eigentlichen Daten (inkl. AV und PLZ/Ortschaft) spielt keine
 === Datenintegration
 Für die Datenintegration sämtlicher Daten in den ÖREB-Kataster werden GRETL-Jobs verwendet. Ein GRETL-Job kann je nach Datensatz unterschiedliche Aufgaben wahrnehmen:
 
-Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (z.B _arp_nutzungsplanung_oereb_v1_), anschliessend nach INTERLIS exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: _stage_ und _live_. Zuerst werden die Daten in das _stage_-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer aus dem _stage_-Schema sind als geschützte Layer im Web GIS Client freigeschaltet, wo die Daten kontrolliert werden können.
+Werden die ÖREB-Daten in der Edit-DB nachgeführt, werden diese zuerst in ein Rahmenmodell-äquivalentes Schema in der Edit-DB umgebaut (_arp_nutzungsplanung_oerebv2_), anschliessend in eine INTERLIS-Datei exportiert, validiert und in die ÖREB-Datenbank importiert. In der ÖREB-Datenbank sind zwei Schemen vorhanden: _stage_ und _live_. Zuerst werden die Daten in das _stage_-Schema importiert. Die Daten müssen von der zuständigen Stelle visuell validiert werden und freigegeben werden. Die WMS-Layer aus dem _stage_-Schema sind als geschützte Layer im Web GIS Client freigeschaltet, wo die Daten kontrolliert werden können.
 
 Das Starten eines solchen Jobs wird in https://gretl.so.ch[_GRETL-Jenkins_] gemacht. Nur berechtigte Personen können den Job starten. Nach erfolgter visueller Validierung muss die berechtigte Person den Import in das _live_-Schema freigeben.
 
