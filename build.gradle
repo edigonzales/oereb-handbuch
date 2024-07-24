@@ -1,15 +1,13 @@
 plugins {
-    id 'org.asciidoctor.jvm.convert' version '3.3.2'
-    id 'org.asciidoctor.jvm.pdf' version '3.3.2'
-    id "de.undercouch.download" version "4.1.2"
-    id 'org.jreleaser' version '0.9.1'
+    id 'org.asciidoctor.jvm.convert' version '4.0.3'
+    id 'org.asciidoctor.jvm.pdf' version '4.0.3'
+    id "de.undercouch.download" version "5.6.0"
+    //id 'org.jreleaser' version '0.9.1'
 }
 
 apply from: "$rootDir/gradle/versioning.gradle"
 
 repositories {
-    jcenter()
-    maven { url 'https://rubygems-proxy.torquebox.org/releases' }
     mavenCentral()
 }
 
@@ -17,42 +15,28 @@ asciidoctor {
     sourceDir  file('src/docs/asciidoc')
     outputDir  file('build/docs')
 
-}
+    asciidoctorj { 
+        attributes 'encoding': 'utf-8',
+            'toc' : 'left',
+            'toc-title': 'Inhaltsverzeichnis',
+            'author': 'Amt für Geoinformation Kanton Solothurn',
+            'email': 'agi@bd.so.ch',
+            'chapter-label': '',
+            'sectnums':  '',
+            'sectlinks': '',
+            'sectanchors': '',
+            'figure-caption': 'Abbildung',
+            'imagesdir' : 'images',
+            'stylesheet' : file('./sogis.css')
 
-asciidoctorj {  // or asciidoctor.asciidoctorj
-    attributes \
-        revnumber : project.version,
-        imagesdir : "images",
-        stylesheet : file('./sogis.css')
-
-   options doctype: 'book', ruby: 'erubis'
-}
-
-pdfThemes {
-    github 'sogis-frutiger', { 
-        organisation = 'sogis' 
-        repository = 'sogis-docs-asciidoctor-themes' 
-        relativePath = 'sogis-frutiger' 
-        branch = 'master' 
-    }
-}
-
-asciidoctorPdf {
-    attributes \
-        imagesdir : "src/docs/asciidoc/images"
-    theme 'sogis-frutiger'
-    fontsDir file("fonts/")
-    doLast {
-        file("${outputDir}/master.pdf").renameTo("${outputDir}/oereb-handbuch.pdf")
+        options doctype: 'book', ruby: 'erubis'
     }
 }
 
 task downloadCss(type: Download) {
     src([
-        'https://raw.githubusercontent.com/sogis/sogis-docs-asciidoctor-themes/master/sogis-css/sogis.css'
+        'https://raw.githubusercontent.com/sogis/sogis-docs-asciidoctor-themes/master/html/sogis-simple/sogis.css'
     ])
-    // Falls nur eine Datei heruntergeladen wird, wird kein Verzeichnis erstellt, sondern die 
-    // Datei direkt gespeichert.
     dest file("./sogis.css")
 }
 
@@ -62,6 +46,53 @@ task deleteCss(type: Delete) {
 
 asciidoctor.dependsOn downloadCss
 asciidoctor.finalizedBy deleteCss
+
+/*
+pdfThemes {
+    github 'sogis-frutiger', { 
+        organisation = 'sogis' 
+        repository = 'sogis-docs-asciidoctor-themes' 
+        relativePath = 'sogis-basic' 
+        branch = 'master' 
+    }
+}
+*/
+
+pdfThemes {
+    local 'basic', { 
+        themeDir = file('.') 
+        themeName = 'sogis-frutiger' 
+    }
+}
+
+asciidoctorPdf {
+    executionMode = JAVA_EXEC
+
+    forkOptions {
+       setMaxHeapSize '1024m'
+    }
+
+    asciidoctorj {
+        attributes 'imagesdir' : 'src/docs/asciidoc/images',
+            'title-page' : '',
+            'toc' : '',
+            'toc-title' : 'Inhaltsverzeichnis',
+            'author': 'Amt für Geoinformation Kanton Solothurn',
+            'email': 'agi@bd.so.ch',
+            'figure-caption' : 'Abbildung',
+            'sectnums' : '',
+            'chapter-signifier' : ''
+
+        options doctype: 'book', ruby: 'erubis'
+    }
+    
+    theme 'basic'
+    fontsDirs file("fonts/")
+
+    doLast {
+        file("${outputDir}/master.pdf").renameTo("${outputDir}/oereb-handbuch.pdf")
+    }
+}
 
 // Fonts müssen vorhanden sein und können nicht mit der Theme mitgeliefert werden.
 task downloadFonts(type: Download) {
@@ -81,6 +112,8 @@ task deleteFonts(type: Delete) {
 asciidoctorPdf.dependsOn downloadFonts
 asciidoctorPdf.finalizedBy deleteFonts
 
+
+/*
 jreleaser {
     project {
         name = 'oereb-handbuch'
@@ -104,3 +137,4 @@ jreleaser {
         }
     }
 }
+*/
