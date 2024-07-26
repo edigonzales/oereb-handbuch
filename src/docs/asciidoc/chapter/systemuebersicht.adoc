@@ -28,7 +28,7 @@ Nicht speziell aufgelistet sind die verschiedenen Arbeits-Datenbank-Schemen in d
 [#oereb_datenbank]
 ==== ÖREB-Datenbank
 Code-Repository: +
-https://github.com/sogis-oereb/oereb-db[https://github.com/sogis-oereb/oereb-db]
+https://github.com/sogis/oereb-db[https://github.com/sogis/oereb-db]
 
 Docker-Image: +
 https://hub.docker.com/r/sogis/oereb-db[https://hub.docker.com/r/sogis/oereb-db]
@@ -40,7 +40,7 @@ Die Datenstruktur entspricht einem mit _ili2pg_ angelegten Schema und Tabellen u
 
 Das _stage_-Schema dient der Validierung der Daten durch die zuständigen Stellen.
 
-Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem einem https://github.com/sogis-oereb/oereb-db/blob/main/create_schema_sql.java[jBang-Java-Skript] durchgeführt. 
+Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem einem https://github.com/sogis/oereb-db/blob/main/create_schema_sql.java[jBang-Java-Skript] durchgeführt. 
 
 Für Test- und Entwicklungszwecken wird mit Github Action ein https://github.com/sogis/oereb-db/blob/master/Dockerfile[Docker-Image] der ÖREB-Datenbank erzeugt.
 
@@ -50,7 +50,7 @@ Benutzernamen und Passwörter der DB-Benutzer werden durch Setzen der Umgebungsv
 
 ==== ÖREB-WMS
 Code-Repository: +
-https://github.com/sogis-oereb/oereb-wms[https://github.com/sogis-oereb/oereb-wms]
+https://github.com/sogis/oereb-wms[https://github.com/sogis/oereb-wms]
 
 Docker-Image: +
 https://hub.docker.com/r/sogis/oereb-wms[https://hub.docker.com/r/sogis/oereb-wms]
@@ -62,7 +62,7 @@ Der WMS-Server exponiert zwei Endpunkte:
 - https://geo.so.ch/wms/oereb: WMS-Layer der kantonalen ÖREB-Daten
 - https://geo.so.ch/wms/oereb-symbols: «Dummy»-Layer für die Generierung der Symbole der Eigentumsbeschränkungen (siehe <<#oereb-gretl-jobs>>). Die Symbole sind Bestandteil der Transferstruktur. 
 
-Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das https://github.com/sogis-oereb/oereb-wms/blob/master/Dockerfile.qgisserver[Docker-Image] gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den `search_path` (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter `/etc/postgresql-common` in den Docker-Container gemountet.
+Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das https://github.com/sogis/oereb-wms/blob/master/Dockerfile.qgisserver[Docker-Image] gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den `search_path` (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter `/etc/postgresql-common` in den Docker-Container gemountet.
 
 Für den produktiven Einsatz wird somit nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.
 
@@ -99,7 +99,7 @@ Die Befehle für die Herstellung der INTERLIS-Transferdatei sind im Github-Repos
 [#oereb-gretl-jobs]
 ==== ÖREB GRETL-Jobs
 Code-Repository: + 
-https://github.com/sogis-oereb/oereb-gretljobs[https://github.com/sogis-oereb/oereb-gretljobs]
+https://github.com/sogis/oereb-gretljobs[https://github.com/sogis/oereb-gretljobs]
 
 Die ÖREB-GRETL-Jobs werden für den Datenfluss eingesetzt. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.
 
