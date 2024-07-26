@@ -21,7 +21,7 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
-      - name: Build html output 
+      - name: Build html and pdf output 
         run: ./gradlew clean asciidoctor asciidoctorPdf
         env:
           BUILD_NUMBER: ${{ env.GITHUB_RUN_NUMBER }}
