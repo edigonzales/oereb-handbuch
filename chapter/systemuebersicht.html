@@ -317,7 +317,7 @@ pre {
 <h4 id="oereb_datenbank"><a class="anchor" href="#oereb_datenbank"></a><a class="link" href="#oereb_datenbank">1.2.1. ÖREB-Datenbank</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis-oereb/oereb-db">https://github.com/sogis-oereb/oereb-db</a></p>
+<a href="https://github.com/sogis/oereb-db">https://github.com/sogis/oereb-db</a></p>
 </div>
 <div class="paragraph">
 <p>Docker-Image:<br>
@@ -333,7 +333,7 @@ pre {
 <p>Das <em>stage</em>-Schema dient der Validierung der Daten durch die zuständigen Stellen.</p>
 </div>
 <div class="paragraph">
-<p>Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem einem <a href="https://github.com/sogis-oereb/oereb-db/blob/main/create_schema_sql.java">jBang-Java-Skript</a> durchgeführt.</p>
+<p>Die Kernfunktionalität des Respositories ist das (aus den Datenmodellen) automatische Herstellen der DDL-Queries zum Aufsetzen der Datenbank. Dieser Prozess wird mit einem einem <a href="https://github.com/sogis/oereb-db/blob/main/create_schema_sql.java">jBang-Java-Skript</a> durchgeführt.</p>
 </div>
 <div class="paragraph">
 <p>Für Test- und Entwicklungszwecken wird mit Github Action ein <a href="https://github.com/sogis/oereb-db/blob/master/Dockerfile">Docker-Image</a> der ÖREB-Datenbank erzeugt.</p>
@@ -349,7 +349,7 @@ pre {
 <h4 id="_öreb_wms"><a class="anchor" href="#_öreb_wms"></a><a class="link" href="#_öreb_wms">1.2.2. ÖREB-WMS</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis-oereb/oereb-wms">https://github.com/sogis-oereb/oereb-wms</a></p>
+<a href="https://github.com/sogis/oereb-wms">https://github.com/sogis/oereb-wms</a></p>
 </div>
 <div class="paragraph">
 <p>Docker-Image:<br>
@@ -372,7 +372,7 @@ pre {
 </ul>
 </div>
 <div class="paragraph">
-<p>Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das <a href="https://github.com/sogis-oereb/oereb-wms/blob/master/Dockerfile.qgisserver">Docker-Image</a> gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den <code>search_path</code> (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter <code>/etc/postgresql-common</code> in den Docker-Container gemountet.</p>
+<p>Sämtliche Konfiguration, insbesondere die QGIS-Projektdateien und die GeoPackage-Datei für den Dummy-Layer werden in das <a href="https://github.com/sogis/oereb-wms/blob/master/Dockerfile.qgisserver">Docker-Image</a> gebrannt. Die PostgreSQL-Verbindungsparameter inklusive Benutzername und Passwort und einer Option, die den <code>search_path</code> (default-Schemaname) definiert, werden in einem PostgreSQL Service File vorgehalten. Es wird in einem Secret platziert und unter <code>/etc/postgresql-common</code> in den Docker-Container gemountet.</p>
 </div>
 <div class="paragraph">
 <p>Für den produktiven Einsatz wird somit nicht der bereits in der GDI vorhandene WMS-Server verwendet, sondern es wird bewusst ein zusätzlicher WMS-Server in Betrieb genommen.</p>
@@ -428,7 +428,7 @@ pre {
 <h4 id="oereb-gretl-jobs"><a class="anchor" href="#oereb-gretl-jobs"></a><a class="link" href="#oereb-gretl-jobs">1.2.5. ÖREB GRETL-Jobs</a></h4>
 <div class="paragraph">
 <p>Code-Repository:<br>
-<a href="https://github.com/sogis-oereb/oereb-gretljobs">https://github.com/sogis-oereb/oereb-gretljobs</a></p>
+<a href="https://github.com/sogis/oereb-gretljobs">https://github.com/sogis/oereb-gretljobs</a></p>
 </div>
 <div class="paragraph">
 <p>Die ÖREB-GRETL-Jobs werden für den Datenfluss eingesetzt. Dazu gehören der Umbau der Daten in der Edit-DB, der Export in das Rahmenmodell, die Prüfung der INTERLIS-Transferdatei und der Import in die ÖREB-Datenbank. Daten, die bereits im Rahmenmodell vorliegen, müssen nur noch geprüft und in die ÖREB-Datenbank importiert werden.</p>
@@ -483,8 +483,8 @@ pre {
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 2.0.27<br>
-Last updated 2024-07-26 08:11:30 UTC
+Version 2.0.28<br>
+Last updated 2024-07-26 12:23:11 UTC
 </div>
 </div>
 </body>
