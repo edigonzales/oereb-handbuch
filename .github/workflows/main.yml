@@ -1,6 +1,8 @@
 name: oereb-handbuch
 
-on: [push]
+on:
+  workflow_dispatch:
+  push:
 
 jobs:
   build-and-deploy:
