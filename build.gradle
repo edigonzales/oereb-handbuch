@@ -47,23 +47,24 @@ task deleteCss(type: Delete) {
 asciidoctor.dependsOn downloadCss
 asciidoctor.finalizedBy deleteCss
 
-/*
 pdfThemes {
     github 'sogis-frutiger', { 
         organisation = 'sogis' 
         repository = 'sogis-docs-asciidoctor-themes' 
-        relativePath = 'sogis-basic' 
+        relativePath = 'pdf/sogis-frutiger' 
         branch = 'master' 
     }
 }
-*/
 
+
+/*
 pdfThemes {
     local 'basic', { 
         themeDir = file('.') 
         themeName = 'sogis-frutiger' 
     }
 }
+*/
 
 asciidoctorPdf {
     executionMode = JAVA_EXEC
@@ -74,19 +75,19 @@ asciidoctorPdf {
 
     asciidoctorj {
         attributes 'imagesdir' : 'src/docs/asciidoc/images',
-            'title-page' : '',
             'toc' : '',
             'toc-title' : 'Inhaltsverzeichnis',
             'author': 'Amt für Geoinformation Kanton Solothurn',
             'email': 'agi@bd.so.ch',
             'figure-caption' : 'Abbildung',
             'sectnums' : '',
-            'chapter-signifier' : ''
+            'chapter-signifier' : '',
+            'revdate' : getDate()
 
         options doctype: 'book', ruby: 'erubis'
     }
     
-    theme 'basic'
+    theme 'sogis-frutiger'
     fontsDirs file("fonts/")
 
     doLast {
@@ -97,10 +98,10 @@ asciidoctorPdf {
 // Fonts müssen vorhanden sein und können nicht mit der Theme mitgeliefert werden.
 task downloadFonts(type: Download) {
     src([
-        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/sogis-frutiger/fonts/frutiger-normal.ttf',
-        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/sogis-frutiger/fonts/frutiger-bold.ttf',
-        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/sogis-frutiger/fonts/frutiger-italic.ttf',
-        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/sogis-frutiger/fonts/frutiger-bold_italic.ttf'
+        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/pdf/sogis-frutiger/fonts/frutiger-normal.ttf',
+        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/pdf/sogis-frutiger/fonts/frutiger-bold.ttf',
+        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/pdf/sogis-frutiger/fonts/frutiger-italic.ttf',
+        'https://github.com/sogis/sogis-docs-asciidoctor-themes/raw/master/pdf/sogis-frutiger/fonts/frutiger-bold_italic.ttf'
     ])
     dest file("fonts/")
 }
@@ -111,6 +112,11 @@ task deleteFonts(type: Delete) {
 
 asciidoctorPdf.dependsOn downloadFonts
 asciidoctorPdf.finalizedBy deleteFonts
+
+
+def getDate() {
+    return new Date().format('yyyy-MM-dd HH:mm')
+}
 
 
 /*
