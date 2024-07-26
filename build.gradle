@@ -113,7 +113,6 @@ task deleteFonts(type: Delete) {
 asciidoctorPdf.dependsOn downloadFonts
 asciidoctorPdf.finalizedBy deleteFonts
 
-
 def getDate() {
     return new Date().format('yyyy-MM-dd HH:mm')
 }
