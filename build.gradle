@@ -17,7 +17,7 @@ asciidoctor {
 
     asciidoctorj { 
         attributes 'encoding': 'utf-8',
-            'toc' : 'left',
+            'toc' : 'right',
             'toc-title': 'Inhaltsverzeichnis',
             'author': 'Amt für Geoinformation Kanton Solothurn',
             'email': 'agi@bd.so.ch',
