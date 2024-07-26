@@ -2,7 +2,7 @@ plugins {
     id 'org.asciidoctor.jvm.convert' version '4.0.3'
     id 'org.asciidoctor.jvm.pdf' version '4.0.3'
     id "de.undercouch.download" version "5.6.0"
-    //id 'org.jreleaser' version '0.9.1'
+    id 'org.jreleaser' version '1.0.0'
 }
 
 apply from: "$rootDir/gradle/versioning.gradle"
@@ -56,16 +56,6 @@ pdfThemes {
     }
 }
 
-
-/*
-pdfThemes {
-    local 'basic', { 
-        themeDir = file('.') 
-        themeName = 'sogis-frutiger' 
-    }
-}
-*/
-
 asciidoctorPdf {
     executionMode = JAVA_EXEC
 
@@ -117,8 +107,6 @@ def getDate() {
     return new Date().format('yyyy-MM-dd HH:mm')
 }
 
-
-/*
 jreleaser {
     project {
         name = 'oereb-handbuch'
@@ -142,4 +130,3 @@ jreleaser {
         }
     }
 }
-*/
